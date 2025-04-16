@@ -6,7 +6,10 @@ const router = createBrowserRouter([
     path: '/',
     children: publicRoutes,
   },
-])
+],
+{
+  basename: '/personal-website'
+})
 
 function App() {
   return (
