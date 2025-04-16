@@ -1,20 +1,18 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { publicRoutes } from "./pages/routes"
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { publicRoutes } from './pages/routes'
 
-const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      children: publicRoutes
-    }
-  ]
-)
+const router = createBrowserRouter([
+  {
+    path: '/',
+    children: publicRoutes,
+  },
+])
 
 function App() {
   return (
     <>
-    <RouterProvider router={router} />
-  </>
+      <RouterProvider router={router} />
+    </>
   )
 }
 
