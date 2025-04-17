@@ -125,6 +125,13 @@
   font-style: normal;
 }
 
+.urbanist-normal {
+  font-family: 'Urbanist', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

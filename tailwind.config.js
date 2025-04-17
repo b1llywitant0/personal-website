@@ -23,6 +23,9 @@ export default {
           dark: '#2563eb', // Sky 600
         },
       },
+      backgroundImage: {
+        beach: "url('/src/assets/img/water-banner.png')",
+      },
     },
   },
   plugins: [],
