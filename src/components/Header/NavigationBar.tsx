@@ -1,8 +1,6 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
 } from '../ui/navigation-menu'
 import { Button } from '../ui/button'
@@ -11,9 +9,7 @@ import GithubLogo from '../../assets/icons/github-icon-black.png'
 import EmailIcon from '../../assets/icons/email-icon-black.png'
 import { NavItem } from './NavigationItem'
 
-export function NavigationBar() {
-    const location = useLocation()
-    
+export function NavigationBar() {    
   return (
     <div className="p-4 w-full urbanist-bold sticky top-0 text-base text-l">
       <div className="flex relative justify-center h-15 w-full isolate aspect-video rounded-xl bg-surface-light/50 shadow-lg ring-1 ring-black/5">

@@ -12,7 +12,9 @@ export function NavItem({ to, children }: { to: string; children: React.ReactNod
         }`}
       >
         <Link to={to}>
-          <NavigationMenuLink className="flex items-center">
+          <NavigationMenuLink className={`flex items-center ${
+            isActive ? 'hover:bg-background-dark hover:text-text-inverted' : ''
+          }`}>
             {children}
           </NavigationMenuLink>
         </Link>
