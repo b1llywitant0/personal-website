@@ -10,4 +10,22 @@ export const publicRoutes: RouteObject[] = [
       }
     },
   },
+  {
+    path: '/portfolios',
+    lazy: async () => {
+      const { Portfolios } = await import('./portfolios')
+      return {
+        element: <Portfolios />,
+      }
+    },
+  },
+  {
+    path: '/blogs',
+    lazy: async () => {
+      const { Blogs } = await import('./blogs')
+      return {
+        element: <Blogs />,
+      }
+    },
+  },
 ]
