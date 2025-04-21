@@ -1,35 +1,41 @@
 import { MapPin } from 'lucide-react'
 import { Marquee } from './Marquee'
-import GitHubIcon from '../../assets/icons/github-icon-black.png'
+import GolangLogo from '../../assets/icons/tech-stacks/go-logo-black.svg'
+import PythonLogo from '../../assets/icons/tech-stacks/python-logo-black.svg'
+import RLogo from '../../assets/icons/tech-stacks/r-logo-black.svg'
+import GitLogo from '../../assets/icons/tech-stacks/git-logo-black.png'
+import SpssLogo from '../../assets/icons/tech-stacks/spss-logo-black.svg'
+import MetabaseLogo from '../../assets/icons/tech-stacks/metabase-logo-black.png'
+import LookerLogo from '../../assets/icons/tech-stacks/looker-logo-black.svg'
 
 const techStackItems = [
   {
-    logo: GitHubIcon,
+    logo: GolangLogo,
     name: 'Golang',
   },
   {
-    logo: GitHubIcon,
+    logo: PythonLogo,
     name: 'Python',
   },
   {
-    logo: GitHubIcon,
-    name: 'Looker Studio',
+    logo: RLogo,
+    name: 'R',
   },
   {
-    logo: GitHubIcon,
+    logo: GitLogo,
     name: 'Git',
   },
   {
-    logo: GitHubIcon,
+    logo: SpssLogo,
     name: 'SPSS',
   },
   {
-    logo: GitHubIcon,
+    logo: MetabaseLogo,
     name: 'Metabase',
   },
   {
-    logo: GitHubIcon,
-    name: 'R',
+    logo: LookerLogo,
+    name: 'Looker',
   },
 ]
 
