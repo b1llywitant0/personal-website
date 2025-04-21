@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { NavigationMenuItem, NavigationMenuLink } from '../ui/navigation-menu'
 
 interface NavItemProps {
-  to: string,
+  to: string
   children: React.ReactNode
 }
 
