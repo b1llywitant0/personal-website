@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import plugin from 'tailwindcss/plugin';
+
 export default {
   darkMode: 'class',
   theme: {
@@ -28,5 +30,20 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities }) {
+      addUtilities({
+        '.no-scrollbar': {
+          /* Chrome, Safari and Opera */
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+          /* Firefox */
+          scrollbarWidth: 'none',
+          /* IE and Edge */
+          '-ms-overflow-style': 'none',
+        },
+      });
+    }),
+  ],
 }
