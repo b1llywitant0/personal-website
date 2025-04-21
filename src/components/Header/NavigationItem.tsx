@@ -1,15 +1,14 @@
 import { Link, useLocation } from 'react-router-dom'
 import { NavigationMenuItem, NavigationMenuLink } from '../ui/navigation-menu'
 
-export function NavItem({
-  to,
-  children,
-}: {
-  to: string
+interface NavItemProps {
+  to: string,
   children: React.ReactNode
-}) {
+}
+
+export function NavItem(props: NavItemProps) {
   const location = useLocation()
-  const isActive = location.pathname === to
+  const isActive = location.pathname === props.to
 
   return (
     <NavigationMenuItem
@@ -17,13 +16,13 @@ export function NavItem({
         isActive ? 'text-text-inverted bg-background-dark' : ''
       }`}
     >
-      <Link to={to}>
+      <Link to={props.to}>
         <NavigationMenuLink
           className={`flex items-center rounded-md ${
             isActive ? 'hover:bg-background-dark hover:text-text-inverted' : ''
           }`}
         >
-          {children}
+          {props.children}
         </NavigationMenuLink>
       </Link>
     </NavigationMenuItem>

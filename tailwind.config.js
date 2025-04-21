@@ -1,10 +1,24 @@
 /** @type {import('tailwindcss').Config} */
-import plugin from 'tailwindcss/plugin';
+import plugin from 'tailwindcss/plugin'
 
 export default {
   darkMode: 'class',
   theme: {
     extend: {
+      animation: {
+        marquee: 'marquee 10s linear infinite',
+        marquee2: 'marquee2 10s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        marquee2: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+      },
       colors: {
         background: {
           light: '#f9fafb', // Light gray
@@ -25,13 +39,11 @@ export default {
           dark: '#2563eb', // Sky 600
         },
       },
-      backgroundImage: {
-        beach: "url('/src/assets/img/water-banner.png')",
-      },
+      backgroundImage: {},
     },
   },
   plugins: [
-    plugin(function({ addUtilities }) {
+    plugin(function ({ addUtilities }) {
       addUtilities({
         '.no-scrollbar': {
           /* Chrome, Safari and Opera */
@@ -43,7 +55,10 @@ export default {
           /* IE and Edge */
           '-ms-overflow-style': 'none',
         },
-      });
+        '.pause': {
+          'animation-play-state': 'paused',
+        },
+      })
     }),
   ],
 }
