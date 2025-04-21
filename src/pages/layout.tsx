@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 export function Layout() {
   return (
-    <div className="flex flex-col items-center bg-background-light">
+    <div className="relative h-full w-full items-center bg-background-light">
       <NavigationBar />
       <Outlet />
     </div>

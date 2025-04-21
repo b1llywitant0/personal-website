@@ -21,9 +21,9 @@ export function Banner() {
           href={downloadUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:bg-accent cursor-pointer"
+          className="rounded-md"
         >
-          <Button>Download My Resume Here!</Button>
+          <Button className='cursor-pointer'>Download My Resume Here!</Button>
         </a>
       </div>
       <img src={helloIcon} className="size-[500px]" />

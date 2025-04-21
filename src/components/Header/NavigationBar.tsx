@@ -8,8 +8,7 @@ import { NavItem } from './NavigationItem'
 
 export function NavigationBar() {
   return (
-    <div className="absolute w-full h-full">
-      <div className="p-4 w-full urbanist-bold sticky top-0 text-base text-l">
+      <div className="p-4 w-full urbanist-bold fixed top-0 text-base text-l">
         <div className="flex relative justify-center h-15 w-full isolate aspect-video rounded-xl bg-surface-light/50 shadow-lg ring-1 ring-black/5">
           <NavigationMenu className="w-full">
             <NavigationMenuList className="flex gap-x-10">
@@ -37,6 +36,5 @@ export function NavigationBar() {
           </div>
         </div>
       </div>
-    </div>
   )
 }

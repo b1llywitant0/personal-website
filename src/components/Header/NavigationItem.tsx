@@ -19,7 +19,7 @@ export function NavItem({
     >
       <Link to={to}>
         <NavigationMenuLink
-          className={`flex items-center ${
+          className={`flex items-center rounded-md ${
             isActive ? 'hover:bg-background-dark hover:text-text-inverted' : ''
           }`}
         >
