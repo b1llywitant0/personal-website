@@ -5,7 +5,7 @@ export function Resume() {
   const downloadUrl = `https://drive.google.com/uc?export=download&id=${driveFileId}`
 
   return (
-    <section className='h-96'>
+    <section className="h-96">
       <a
         href={downloadUrl}
         target="_blank"

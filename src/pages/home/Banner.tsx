@@ -24,7 +24,12 @@ import ViteLogo from '../../assets/icons/tech-stacks/vite-logo.svg'
 import TailwindLogo from '../../assets/icons/tech-stacks/tailwind-logo.png'
 import ShadcnLogo from '../../assets/icons/tech-stacks/shadcn-logo.png'
 import { useTypewriter } from '@/hooks/useTypewriter'
-import { animate, motion, useMotionTemplate, useMotionValue } from 'motion/react'
+import {
+  animate,
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+} from 'motion/react'
 import { useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { ChevronDown } from 'lucide-react'
@@ -148,16 +153,17 @@ export function Banner() {
       ease: 'easeInOut',
       duration: 10,
       repeat: Infinity,
-      repeatType: "mirror",
+      repeatType: 'mirror',
     })
-  }, [])
+  }, [color])
 
   return (
-    <motion.section 
+    <motion.section
       style={{
         backgroundImage,
       }}
-      className="h-screen w-full flex flex-col justify-center gap-10 items-center text-text-inverted">
+      className="h-screen w-full flex flex-col justify-center gap-10 items-center text-text-inverted"
+    >
       <div className="flex flex-col items-center mt-10 cursor-default">
         <motion.span
           initial={{ opacity: 0, y: 0 }}
@@ -178,11 +184,12 @@ export function Banner() {
           </span>
         </motion.div>
       </div>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 1 }}
-        className="flex flex-col w-full justify-center items-center gap-5 cursor-default mt-20">
+        className="flex flex-col w-full justify-center items-center gap-5 cursor-default mt-20"
+      >
         <span className="w-3/4 text-center inter-normal text-[15px]">
           Experienced in:
         </span>
@@ -192,7 +199,7 @@ export function Banner() {
         </div>
       </motion.div>
       <div className="absolute flex flex-row items-center bottom-5">
-        <Button className='h-5 w-20 bg-background-dark/70'>
+        <Button className="h-5 w-20 bg-background-dark/70">
           <ChevronDown size={10} />
         </Button>
       </div>
