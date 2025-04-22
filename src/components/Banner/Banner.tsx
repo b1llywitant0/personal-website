@@ -143,10 +143,10 @@ export function Banner() {
         </span>
       </div>
       <div className="flex flex-col w-full justify-center items-center gap-3 cursor-default">
-        <span className="w-1/2 text-left urbanist-normal text-[20px]">
+        <span className="w-3/4 text-left urbanist-normal text-[20px]">
           What I work with:
         </span>
-        <div className="w-1/2 rounded-xl flex flex-col">
+        <div className="w-3/4 rounded-xl flex flex-col">
           <Marquee items={techStackItems1} />
           <Marquee items={techStackItems2} />
         </div>
