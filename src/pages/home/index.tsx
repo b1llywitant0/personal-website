@@ -1,4 +1,4 @@
-import { Banner } from '@/components/Banner/Banner'
+import { Banner } from '@/pages/home/Banner'
 import { Button } from '@/components/ui/button'
 
 export function Homepage() {

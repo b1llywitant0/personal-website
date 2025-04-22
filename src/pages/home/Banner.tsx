@@ -1,4 +1,4 @@
-import { Marquee } from './Marquee'
+import { Marquee } from '../../components/Marquee/Marquee'
 import GolangLogo from '../../assets/icons/tech-stacks/golang-logo.svg'
 import PythonLogo from '../../assets/icons/tech-stacks/python-logo.webp'
 import RLogo from '../../assets/icons/tech-stacks/r-logo.png'
