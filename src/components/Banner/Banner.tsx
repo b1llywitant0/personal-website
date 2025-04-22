@@ -14,6 +14,16 @@ import KafkaLogo from '../../assets/icons/tech-stacks/kafka-logo-black.svg'
 import SparkLogo from '../../assets/icons/tech-stacks/spark-logo.png'
 import CubeLogo from '../../assets/icons/tech-stacks/cube-logo.png'
 import DebeziumLogo from '../../assets/icons/tech-stacks/debezium-logo.png'
+import DockerLogo from '../../assets/icons/tech-stacks/docker-logo.webp'
+import JupyterLogo from '../../assets/icons/tech-stacks/jupyter-logo.png'
+import HtmlLogo from '../../assets/icons/tech-stacks/html-logo.webp'
+import CssLogo from '../../assets/icons/tech-stacks/css-logo.webp'
+import JsLogo from '../../assets/icons/tech-stacks/javascript-logo.webp'
+import TsLogo from '../../assets/icons/tech-stacks/typescript-logo.webp'
+import ReactLogo from '../../assets/icons/tech-stacks/react-logo.webp'
+import ViteLogo from '../../assets/icons/tech-stacks/vite-logo.svg'
+import TailwindLogo from '../../assets/icons/tech-stacks/tailwind-logo.png'
+import ShadcnLogo from '../../assets/icons/tech-stacks/shadcn-logo.png'
 
 const techStackItems1 = [
   {
@@ -29,16 +39,36 @@ const techStackItems1 = [
     name: 'R',
   },
   {
-    logo: GitLogo,
-    name: 'Git',
+    logo: HtmlLogo,
+    name: 'HTML',
   },
   {
-    logo: MetabaseLogo,
-    name: 'Metabase',
+    logo: CssLogo,
+    name: 'CSS',
   },
   {
-    logo: LookerLogo,
-    name: 'Looker',
+    logo: JsLogo,
+    name: 'JavaScript',
+  },
+  {
+    logo: TsLogo,
+    name: 'TypeScript',
+  },
+  {
+    logo: ReactLogo,
+    name: 'React',
+  },
+  {
+    logo: ViteLogo,
+    name: 'Vite',
+  },
+  {
+    logo: TailwindLogo,
+    name: 'Tailwind',
+  },
+  {
+    logo: ShadcnLogo,
+    name: 'ShadCN',
   },
   {
     logo: SpssLogo,
@@ -79,25 +109,44 @@ const techStackItems2 = [
     logo: CubeLogo,
     name: 'Cube',
   },
+  {
+    logo: DockerLogo,
+    name: 'Docker',
+  }, 
+  {
+    logo: GitLogo,
+    name: 'Git',
+  },
+  {
+    logo: JupyterLogo,
+    name: 'Notebook',
+  },
+  {
+    logo: MetabaseLogo,
+    name: 'Metabase',
+  },
+  {
+    logo: LookerLogo,
+    name: 'Looker',
+  },
 ]
 
 export function Banner() {
   return (
     <div className="h-screen w-full bg-no-repeat bg-cover flex flex-col justify-center gap-10 items-center">
-      <div className="flex flex-col items-center mt-10">
-        <span className="urbanist-normal text-[120px] text-center">
+      <div className="flex flex-col items-center mt-10 cursor-default">
+        <span className="urbanist-semibold text-[100px] text-center">
           BILLY WITANTO
         </span>
-        <span className="text-center playfair-display-400 text-[40px]">
-          Researcher | Data Analyst | Analytics Engineer{' '}
-          <a className="text-[12px]">(wanna-be)</a>
+        <span className="text-center playfair-display-400 text-[32px] cursor-default">
+          Researcher | Data Analyst | Analytics Engineer
         </span>
       </div>
-      <div className="flex flex-col w-full justify-center items-center gap-3">
+      <div className="flex flex-col w-full justify-center items-center gap-3 cursor-default">
         <span className="w-1/2 text-left urbanist-normal text-[20px]">
           What I work with:
         </span>
-        <div className="w-1/2 h-55 rounded-xl flex flex-col">
+        <div className="w-1/2 rounded-xl flex flex-col">
           <Marquee items={techStackItems1} />
           <Marquee items={techStackItems2} />
         </div>

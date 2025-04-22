@@ -119,6 +119,13 @@
   font-style: normal;
 }
 
+.urbanist-semibold {
+  font-family: 'Urbanist', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
 .playfair-display-400 {
   font-family: 'Playfair Display', serif;
   font-optical-sizing: auto;
