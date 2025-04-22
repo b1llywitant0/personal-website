@@ -24,6 +24,7 @@ import ReactLogo from '../../assets/icons/tech-stacks/react-logo.webp'
 import ViteLogo from '../../assets/icons/tech-stacks/vite-logo.svg'
 import TailwindLogo from '../../assets/icons/tech-stacks/tailwind-logo.png'
 import ShadcnLogo from '../../assets/icons/tech-stacks/shadcn-logo.png'
+import { useTypewriter } from '@/hooks/useTypewriter'
 
 const techStackItems1 = [
   {
@@ -132,19 +133,22 @@ const techStackItems2 = [
 ]
 
 export function Banner() {
+  const typed = useTypewriter(['a researcher', 'a data analyst', 'an analytics engineer'])
+
   return (
-    <div className="h-screen w-full bg-no-repeat bg-cover flex flex-col justify-center gap-10 items-center">
+    <div className="h-screen w-full bg-no-repeat bg-cover flex flex-col justify-center gap-10 items-center text-text-base">
       <div className="flex flex-col items-center mt-10 cursor-default">
         <span className="urbanist-semibold text-[100px] text-center">
           BILLY WITANTO
         </span>
-        <span className="text-center playfair-display-400 text-[32px] cursor-default">
-          Researcher | Data Analyst | Analytics Engineer
+        <span className="text-left playfair-display-400 text-[32px] cursor-default">
+          Hi, I am <span className='text-accent-dark'>{typed}</span>
+          <span className="animate-pulse">|</span>
         </span>
       </div>
       <div className="flex flex-col w-full justify-center items-center gap-3 cursor-default">
         <span className="w-3/4 text-left urbanist-normal text-[20px]">
-          What I work with:
+          What I Use:
         </span>
         <div className="w-3/4 rounded-xl flex flex-col">
           <Marquee items={techStackItems1} />
