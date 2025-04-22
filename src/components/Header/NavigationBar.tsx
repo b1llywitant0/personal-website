@@ -12,7 +12,7 @@ export function NavigationBar() {
       <div className="flex relative justify-center h-15 w-full isolate aspect-video rounded-xl bg-surface-dark/80 shadow-lg ring-1 ring-black/5">
         <NavigationMenu className="w-full">
           <NavigationMenuList className="flex gap-x-10">
-            <NavItem to="/">HOME</NavItem>
+            <NavItem to="/">ABOUT ME</NavItem>
             <NavItem to="/portfolios">PORTFOLIOS</NavItem>
             <NavItem to="/blogs">BLOGS</NavItem>
           </NavigationMenuList>

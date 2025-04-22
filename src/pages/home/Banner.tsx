@@ -31,8 +31,7 @@ import {
   useMotionValue,
 } from 'motion/react'
 import { useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { ChevronDown } from 'lucide-react'
+import { ArrowDown } from 'lucide-react'
 
 const techStackItems1 = [
   {
@@ -198,10 +197,11 @@ export function Banner() {
           <Marquee items={techStackItems2} />
         </div>
       </motion.div>
-      <div className="absolute flex flex-row items-center bottom-5">
-        <Button className="h-5 w-20 bg-background-dark/70">
-          <ChevronDown size={10} />
-        </Button>
+      <div className="absolute flex flex-row gap-1 items-center bottom-5">
+        <ArrowDown className="animate-bounce" />
+        <span className="inline-block align-middle cursor-default">
+          Scroll-down to see more
+        </span>
       </div>
     </motion.section>
   )
