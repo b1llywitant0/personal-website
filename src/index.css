@@ -112,32 +112,31 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-.urbanist-bold {
-  font-family: 'Urbanist', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: bold;
-  font-style: normal;
-}
 
-.urbanist-semibold {
-  font-family: 'Urbanist', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.playfair-display-400 {
-  font-family: 'Playfair Display', serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.urbanist-normal {
-  font-family: 'Urbanist', sans-serif;
+.roboto-normal {
+  font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   font-weight: normal;
   font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.inter-normal {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.roboto-serif-normal {
+  font-family: "Roboto Serif", serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100,
+    "GRAD" 0;
 }
 
 html,

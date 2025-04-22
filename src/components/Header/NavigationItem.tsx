@@ -13,13 +13,13 @@ export function NavItem(props: NavItemProps) {
   return (
     <NavigationMenuItem
       className={`w-30 rounded-md ${
-        isActive ? 'text-text-inverted bg-background-dark' : ''
+        isActive ? 'text-text-base bg-background-light' : ''
       }`}
     >
       <Link to={props.to}>
         <NavigationMenuLink
           className={`flex items-center rounded-md ${
-            isActive ? 'hover:bg-background-dark hover:text-text-inverted' : ''
+            isActive ? 'hover:bg-background-light hover:text-text-base' : ''
           }`}
         >
           {props.children}

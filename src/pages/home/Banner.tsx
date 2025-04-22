@@ -3,7 +3,6 @@ import GolangLogo from '../../assets/icons/tech-stacks/golang-logo.svg'
 import PythonLogo from '../../assets/icons/tech-stacks/python-logo.webp'
 import RLogo from '../../assets/icons/tech-stacks/r-logo.png'
 import GitLogo from '../../assets/icons/tech-stacks/git-logo.webp'
-import SpssLogo from '../../assets/icons/tech-stacks/spss-logo.png'
 import MetabaseLogo from '../../assets/icons/tech-stacks/metabase-logo.png'
 import LookerLogo from '../../assets/icons/tech-stacks/looker-logo.png'
 import PostgreLogo from '../../assets/icons/tech-stacks/postgresql-logo.png'
@@ -25,6 +24,10 @@ import ViteLogo from '../../assets/icons/tech-stacks/vite-logo.svg'
 import TailwindLogo from '../../assets/icons/tech-stacks/tailwind-logo.png'
 import ShadcnLogo from '../../assets/icons/tech-stacks/shadcn-logo.png'
 import { useTypewriter } from '@/hooks/useTypewriter'
+import { animate, motion, useMotionTemplate, useMotionValue } from 'motion/react'
+import { useEffect } from 'react'
+import { Button } from '@/components/ui/button'
+import { ChevronDown } from 'lucide-react'
 
 const techStackItems1 = [
   {
@@ -71,10 +74,6 @@ const techStackItems1 = [
     logo: ShadcnLogo,
     name: 'ShadCN',
   },
-  {
-    logo: SpssLogo,
-    name: 'SPSS',
-  },
 ]
 
 const techStackItems2 = [
@@ -113,7 +112,7 @@ const techStackItems2 = [
   {
     logo: DockerLogo,
     name: 'Docker',
-  }, 
+  },
   {
     logo: GitLogo,
     name: 'Git',
@@ -132,29 +131,71 @@ const techStackItems2 = [
   },
 ]
 
+const colors = ['#13FFAA', '#1E67C6', '#CE84CF', '#DD335C']
+
 export function Banner() {
-  const typed = useTypewriter(['a researcher', 'a data analyst', 'an analytics engineer'])
+  const typed = useTypewriter([
+    'a researcher',
+    'a data analyst',
+    'an analytics engineer',
+  ])
+
+  const color = useMotionValue(colors[0])
+  const backgroundImage = useMotionTemplate`radial-gradient(100% 100% at 50% 0%, #111827 50%, ${color}`
+
+  useEffect(() => {
+    animate(color, colors, {
+      ease: 'easeInOut',
+      duration: 10,
+      repeat: Infinity,
+      repeatType: "mirror",
+    })
+  }, [])
 
   return (
-    <div className="h-screen w-full bg-no-repeat bg-cover flex flex-col justify-center gap-10 items-center text-text-base">
+    <motion.section 
+      style={{
+        backgroundImage,
+      }}
+      className="h-screen w-full flex flex-col justify-center gap-10 items-center text-text-inverted">
       <div className="flex flex-col items-center mt-10 cursor-default">
-        <span className="urbanist-semibold text-[100px] text-center">
-          BILLY WITANTO
-        </span>
-        <span className="text-left playfair-display-400 text-[32px] cursor-default">
-          Hi, I am <span className='text-accent-dark'>{typed}</span>
-          <span className="animate-pulse">|</span>
-        </span>
+        <motion.span
+          initial={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 2 }}
+          className="inter-normal text-[100px] text-center"
+        >
+          Billy Witanto
+        </motion.span>
+        <motion.div
+          initial={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 2 }}
+        >
+          <span className="text-left roboto-normal !font-extralight text-[25px] cursor-default">
+            Hi! I am <span>{typed}</span>
+            <span className="animate-pulse">|</span>
+          </span>
+        </motion.div>
       </div>
-      <div className="flex flex-col w-full justify-center items-center gap-3 cursor-default">
-        <span className="w-3/4 text-left urbanist-normal text-[20px]">
-          What I Use:
+      <motion.div 
+        initial={{ opacity: 0, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 1 }}
+        className="flex flex-col w-full justify-center items-center gap-5 cursor-default mt-20">
+        <span className="w-3/4 text-center inter-normal text-[15px]">
+          Experienced in:
         </span>
         <div className="w-3/4 rounded-xl flex flex-col">
           <Marquee items={techStackItems1} />
           <Marquee items={techStackItems2} />
         </div>
+      </motion.div>
+      <div className="absolute flex flex-row items-center bottom-5">
+        <Button className='h-5 w-20 bg-background-dark/70'>
+          <ChevronDown size={10} />
+        </Button>
       </div>
-    </div>
+    </motion.section>
   )
 }
