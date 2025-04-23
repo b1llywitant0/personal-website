@@ -62,8 +62,56 @@ const jobs = [
     companyLink:
       'https://en.wikipedia.org/wiki/Eijkman_Molecular_Biology_Research_Center',
     location: 'Jakarta, Indonesia',
-    description: 'Doing lab things related to Hepatitis B & C virus.',
+    description: `
+      Doing lab things related to Hepatitis B & C virus. Started to handle data analysis on the second year of employment.
+    `,
     tools: ['R', 'SPSS'],
+  },
+]
+const educations = [
+  {
+    title: 'Career Accelerator: Data Engineer',
+    durationFrom: 'June 2024',
+    durationTo: 'September 2024',
+    company: 'dibimbing.id',
+    companyLink: 'https://dibimbing.id/',
+    location: 'Online Course',
+    description: `
+      My challenges with time-consuming data cleaning tasks sparked my interest in data engineering, 
+      leading me to take this course to enhance my data skills. Weekend class.
+    `,
+    tools: [
+      'CLI',
+      'Git',
+      'Python',
+      'SQL',
+      'Docker',
+      'Airflow',
+      'Spark',
+      'Kafka',
+    ],
+  },
+  {
+    title: 'Job Connector: Data Science and Machine Learning',
+    durationFrom: 'October 2021',
+    durationTo: 'April 2022',
+    company: 'Purwadhika Digital Technology School',
+    companyLink: 'https://www.purwadhika.com/',
+    location: 'Online Course',
+    description: `
+      My first leap to become a data analyst. Tired with lab works, I decided to take a course to deepen my skill
+      in statistics and data analytics. Full-time 6-months course.
+    `,
+    tools: ['Python', 'MySQL', 'Tableau'],
+  },
+  {
+    title: 'Bachelor of Science',
+    durationFrom: 'August 2013',
+    durationTo: 'September 2017',
+    company: 'Surya University',
+    location: 'Tangerang Selatan, Indonesia',
+    description:
+      'Biotechnology department. Learning niche stuff about biology.',
   },
 ]
 
@@ -86,7 +134,7 @@ export function Resume() {
   return (
     <motion.section
       style={{ backgroundImage }}
-      className="h-[2000px] flex flex-col items-center justify-start gap-20"
+      className="h-fit flex flex-col items-center justify-start gap-20"
     >
       <Reveal duration={1}>
         <div className=" flex flex-col justify-start mt-45 gap-5 text-text-inverted text-2xl roboto-normal !font-light">
@@ -129,17 +177,48 @@ export function Resume() {
           ))}
         </div>
       </div>
+
+      <div className="w-full flex flex-col gap-10 justify-center items-center text-text-inverted">
+        <Reveal slide={true}>
+          <span className="text-5xl inter-normal cursor-default">
+            Education
+          </span>
+        </Reveal>
+        <div className="flex flex-col gap-10">
+          {educations.map((item) => (
+            <Reveal duration={1} vertical={false}>
+              <Job
+                Title={item.title}
+                DurationFrom={item.durationFrom}
+                DurationTo={item.durationTo}
+                Company={item.company}
+                CompanyLink={item.companyLink}
+                Location={item.location}
+                Description={item.description}
+                Tools={item.tools}
+              />
+            </Reveal>
+          ))}
+        </div>
+      </div>
       <Reveal>
-        <a
-          href={downloadUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-md"
-        >
-          <Button className="cursor-pointer roboto-normal !font-light">
-            You can download my resume here~
-          </Button>
-        </a>
+        <div className="text-text-inverted mb-10 flex flex-row justify-center items-center gap-5 inter-normal">
+          <span className="text-right">
+            Well, you've come to the bottom of the page.
+            <br />
+            Do you need my resume?
+          </span>
+          <a
+            href={downloadUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md"
+          >
+            <Button className="cursor-pointer !font-light">
+              Click here to download
+            </Button>
+          </a>
+        </div>
       </Reveal>
     </motion.section>
   )

@@ -15,7 +15,7 @@ export function Reveal({
   vertical = true,
 }: RevealProps) {
   const targetRef = useRef(null)
-  const isInView = useInView(targetRef, { once: true, amount: 0.2 })
+  const isInView = useInView(targetRef, { once: true, amount: 0.5 })
   const mainControls = useAnimation()
   const slideControls = useAnimation()
 
