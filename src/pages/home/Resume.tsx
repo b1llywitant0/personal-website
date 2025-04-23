@@ -202,8 +202,8 @@ export function Resume() {
         </div>
       </div>
       <Reveal>
-        <div className="text-text-inverted mb-10 flex flex-row justify-center items-center gap-5 inter-normal">
-          <span className="text-right">
+        <div className="text-text-inverted mb-20 flex flex-row justify-center items-center gap-10 inter-normal">
+          <span className="text-right text-xl">
             Well, you've come to the bottom of the page.
             <br />
             Do you need my resume?
@@ -214,7 +214,7 @@ export function Resume() {
             rel="noopener noreferrer"
             className="rounded-md"
           >
-            <Button className="cursor-pointer !font-light">
+            <Button className="text-xl h-1/2 cursor-pointer !font-light">
               Click here to download
             </Button>
           </a>
