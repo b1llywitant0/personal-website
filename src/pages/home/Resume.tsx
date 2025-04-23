@@ -8,6 +8,7 @@ import { Button } from '../../components/ui/button'
 import { useEffect } from 'react'
 import { Reveal } from '@/components/Reveal/Reveal'
 import { Job } from '@/components/Card/Job'
+import { ShinyButton } from '@/components/ui/ShinyButton'
 
 const colors = ['#13FFAA', '#1E67C6', '#CE84CF', '#DD335C']
 const jobs = [
@@ -208,16 +209,14 @@ export function Resume() {
             <br />
             Do you need my resume?
           </span>
-          <a
-            href={downloadUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-md"
-          >
-            <Button className="text-xl h-1/2 cursor-pointer !font-light">
-              Click here to download
-            </Button>
-          </a>
+            <a
+              href={downloadUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative rounded-md"
+            >
+              <ShinyButton text='Click here to download'/>
+            </a>
         </div>
       </Reveal>
     </motion.section>
