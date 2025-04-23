@@ -7,6 +7,7 @@ import {
 import { Button } from '../../components/ui/button'
 import { useEffect } from 'react'
 import { Reveal } from '@/components/Reveal/Reveal'
+import { Job } from '@/components/Card/Job'
 
 const colors = ['#13FFAA', '#1E67C6', '#CE84CF', '#DD335C']
 
@@ -29,10 +30,10 @@ export function Resume() {
   return (
     <motion.section
       style={{ backgroundImage }}
-      className="h-screen flex flex-col items-center justify-start gap-20"
+      className="h-[2000px] flex flex-col items-center justify-start gap-20"
     >
-      <Reveal>
-        <div className=" flex flex-col justify-start mt-30 gap-5 text-text-inverted text-2xl inter-normal !font-light">
+      <Reveal duration={1}>
+        <div className=" flex flex-col justify-start mt-30 gap-5 text-text-inverted text-2xl roboto-normal !font-light">
           <div className="flex flex-row gap-5">
             <p>📍</p>
             <p>I am a data professional based in Jakarta, Indonesia.</p>
@@ -49,17 +50,24 @@ export function Resume() {
           </div>
         </div>
       </Reveal>
-      <div>
-        <Reveal>
-          <span className="text-text-inverted text-5xl inter-normal">
+      <div className='w-full flex flex-col gap-10 justify-center items-center text-text-inverted'>
+        <Reveal slide={true}>
+          <span className="text-5xl inter-normal">
             Work Experience
           </span>
         </Reveal>
-        <Reveal>
-          <div>
-            
-          </div>
-        </Reveal>
+        <div>
+          <Reveal duration={1}>
+            <Job 
+              Title='Software Engineer Trainee'
+              DurationFrom='September 2024'
+              DurationTo='February 2025'
+              Company='Sea Labs Indonesia'
+              Location='Jakarta Pusat, Indonesia'
+              Description='Intership for full-stack software engineer'
+            />
+          </Reveal>
+        </div>
       </div>
       <div>
         <a

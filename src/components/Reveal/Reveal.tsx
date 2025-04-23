@@ -3,17 +3,21 @@ import { useEffect, useRef } from 'react'
 
 interface RevealProps {
   children: React.ReactNode
+  slide?: boolean
+  duration?: number
 }
 
-export function Reveal(props: RevealProps) {
+export function Reveal({children, slide=false, duration=0.5}: RevealProps) {
   const targetRef = useRef(null)
-  const isInView = useInView(targetRef, { once: true, amount: 0.5 })
+  const isInView = useInView(targetRef, { once: true, amount: 0.2 })
   const mainControls = useAnimation()
+  const slideControls = useAnimation()
 
   useEffect(() => {
     if (isInView) {
       console.log(isInView)
       mainControls.start('visible')
+      slideControls.start('visible')
     }
   }, [isInView])
 
@@ -26,10 +30,37 @@ export function Reveal(props: RevealProps) {
         }}
         initial="hidden"
         animate={mainControls}
-        transition={{ duration: 1 }}
+        transition={
+            slide ?
+            { duration: duration, delay: 0.25 }
+            :
+            { duration: duration }
+        }
       >
-        {props.children}
+        {children}
       </motion.div>
+      {
+        slide ? 
+        <motion.div 
+            variants={{
+                hidden: { left: 0 },
+                visible: { left: '100%' },
+            }}
+            initial='hidden'
+            animate={slideControls}
+            transition={{ duration: duration, ease: 'easeIn' }}
+            style={{
+                position: 'absolute',
+                top: 4,
+                bottom: 4,
+                left: 0,
+                right: 0,
+                background: '#FFFFFF',
+                zIndex: 20,
+            }}
+        />
+        : ''
+      }
     </div>
   )
 }
