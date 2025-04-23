@@ -165,17 +165,17 @@ export function Banner() {
     >
       <div className="flex flex-col items-center mt-10 cursor-default">
         <motion.span
-          initial={{ opacity: 0, y: 0 }}
+          initial={{ opacity: 0, y: 75 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2 }}
+          transition={{ duration: 1 }}
           className="inter-normal text-[100px] text-center"
         >
           Billy Witanto
         </motion.span>
         <motion.div
-          initial={{ opacity: 0, y: 0 }}
+          initial={{ opacity: 0, y: 75 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2 }}
+          transition={{ duration: 1 }}
         >
           <span className="text-left roboto-normal !font-extralight text-[25px] cursor-default">
             Hi! I am <span>{typed}</span>
