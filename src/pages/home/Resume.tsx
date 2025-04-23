@@ -4,7 +4,6 @@ import {
   useMotionValue,
   motion,
 } from 'motion/react'
-import { Button } from '../../components/ui/button'
 import { useEffect } from 'react'
 import { Reveal } from '@/components/Reveal/Reveal'
 import { Job } from '@/components/Card/Job'
@@ -209,14 +208,14 @@ export function Resume() {
             <br />
             Do you need my resume?
           </span>
-            <a
-              href={downloadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative rounded-md"
-            >
-              <ShinyButton text='Click here to download'/>
-            </a>
+          <a
+            href={downloadUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative rounded-md"
+          >
+            <ShinyButton text="Click here to download" />
+          </a>
         </div>
       </Reveal>
     </motion.section>
