@@ -17,13 +17,12 @@ export function Reveal({
   slideBackground = '#FFFFFF'
 }: RevealProps) {
   const targetRef = useRef(null)
-  const isInView = useInView(targetRef, { once: true, amount: 0.5 })
+  const isInView = useInView(targetRef, { once: true, amount: 0.3 })
   const mainControls = useAnimation()
   const slideControls = useAnimation()
 
   useEffect(() => {
     if (isInView) {
-      console.log(isInView)
       mainControls.start('visible')
       slideControls.start('visible')
     }
