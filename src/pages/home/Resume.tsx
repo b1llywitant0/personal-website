@@ -202,7 +202,7 @@ export function Resume() {
         </div>
       </div>
       <Reveal>
-        <div className="text-text-inverted mb-20 flex flex-row justify-center items-center gap-10 inter-normal">
+        <div className="text-text-inverted mb-15 flex flex-row justify-center items-center gap-10 inter-normal">
           <span className="text-right text-xl">
             Well, you've come to the bottom of the page.
             <br />
