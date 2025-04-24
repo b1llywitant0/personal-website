@@ -6,6 +6,7 @@ interface RevealProps {
   slide?: boolean
   duration?: number
   vertical?: boolean
+  slideBackground?: string
 }
 
 export function Reveal({
@@ -13,6 +14,7 @@ export function Reveal({
   slide = false,
   duration = 0.5,
   vertical = true,
+  slideBackground = '#FFFFFF'
 }: RevealProps) {
   const targetRef = useRef(null)
   const isInView = useInView(targetRef, { once: true, amount: 0.5 })
@@ -64,7 +66,7 @@ export function Reveal({
             bottom: 4,
             left: 0,
             right: 0,
-            background: '#FFFFFF',
+            background: slideBackground,
             zIndex: 20,
           }}
         />
