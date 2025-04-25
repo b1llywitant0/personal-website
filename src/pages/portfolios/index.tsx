@@ -1,6 +1,10 @@
 import { Portfolio } from "@/components/Card/Portfolio";
 import { Reveal } from "@/components/Reveal/Reveal";
 import Test from '../../assets/icons/linkedin-icon-black-png.png'
+import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { AnimatePresence, motion } from 'motion/react'
 
 interface PortfolioItem {
   id: number
@@ -86,15 +90,41 @@ const PortfolioItems: PortfolioItem[] = [
     ],
     briefDescription: 'Personal project to create a website and showcasing my front-end skill that I learned recently.'
   }
-  
 ]
 
 export function Portfolios() {
+  const [selectedRole, setSelectedRole] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [direction, setDirection] = useState<'left'|'right'>('right')
+
+  const filteredData = PortfolioItems.filter(item => selectedRole ? item.role === selectedRole : true)
+
+  const itemsPerPage = 1
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage)
+
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage, 
+    currentPage * itemsPerPage
+  )
+
+  useEffect(() => {
+    console.log(direction)
+  },[direction])
+
   return (
-    <div className="flex flex-col items-center justify-center h-fill mt-4 bg-background-dark text-text-inverted gap-10">
-      <div className="flex flex-row flex-wrap items-center justify-center gap-5 mt-20">
+    <div className="flex flex-col items-center justify-center h-screen bg-background-dark text-text-inverted gap-10">
+      <AnimatePresence mode='wait' initial={false}>
+      <motion.div 
+        className="flex flex-row flex-wrap items-center justify-center gap-5 mt-20"
+        key={currentPage}
+        initial={{ opacity: 0, x: direction === 'right' ? "100%" : "-100%" }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: direction === 'right' ? "-100%" : "100%" }}
+        transition={{ duration: 0.5, ease:'easeInOut'}}  
+      >
         {
-          PortfolioItems.map((item) => (
+          paginatedData.map((item) => (
             <Reveal slide={true} vertical={false}>
               <Portfolio 
                 key={item.id}
@@ -107,7 +137,32 @@ export function Portfolios() {
             </Reveal>
           ))
         }        
-      </div>
+      </motion.div>
+      </AnimatePresence>
+      {
+       currentPage != 1 ?  
+       <div className="absolute left-5 top-1/2 w-fill">
+        <Button onClick={() => {
+          setDirection('left')
+          setTimeout(() => setCurrentPage(currentPage-1),0)
+        }}>
+          <ChevronLeft />
+        </Button>
+       </div>
+      : ''
+      }
+      {
+       currentPage != totalPages ?  
+       <div className="absolute right-5 top-1/2 w-fill">
+        <Button onClick={() => {
+          setDirection('right')
+          setTimeout(() => setCurrentPage(currentPage+1),0)
+        }}>
+          <ChevronRight />
+        </Button>
+       </div>
+      : ''
+      }
     </div>
   )
 }
