@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from 'motion/react'
+import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface PortfolioItem {
   id: number
@@ -93,11 +94,11 @@ const PortfolioItems: PortfolioItem[] = [
 ]
 
 export function Portfolios() {
-  const [selectedRole, setSelectedRole] = useState<string | null>(null)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [selectedRole, setSelectedRole] = useState<string>('All')
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [direction, setDirection] = useState<'left'|'right'>('right')
 
-  const filteredData = PortfolioItems.filter(item => selectedRole ? item.role === selectedRole : true)
+  const filteredData = PortfolioItems.filter(item => selectedRole === 'All' ? true : item.role === selectedRole)
 
   const itemsPerPage = 4
 
@@ -110,20 +111,27 @@ export function Portfolios() {
 
   return (
     <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-10">
-      
-      <select
-        onChange={(e) => {
-          setSelectedRole(e.target.value || null);
-          setCurrentPage(1)
-        }}
-        className="text-black bg-white mt-30"
-      >
-        <option value=''>All</option>
-        <option value='Data Analyst'>Data Analyst</option>
-        <option value='Data Scientist'>Data Scientist</option>
-        <option value='Data Engineer'>Data Engineer</option>
-        <option value='Front-End Engineer'>Front-End Engineer</option>
-      </select>
+      <div className="flex flex-row gap-2 mt-30">
+        <Select
+          onValueChange={(e) => {
+            setSelectedRole(e)
+            setCurrentPage(1)
+          }}
+        >
+          <SelectTrigger
+            className="bg-white text-black w-[200px]"
+          >
+            <SelectValue placeholder="Role"/>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value='All'>All Roles</SelectItem>
+            <SelectItem value='Data Analyst'>Data Analyst</SelectItem>
+            <SelectItem value='Data Scientist'>Data Scientist</SelectItem>
+            <SelectItem value='Data Engineer'>Data Engineer</SelectItem>
+            <SelectItem value='Front-End Engineer'>Front-End Engineer</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       <AnimatePresence mode='wait' initial={false}>
       <motion.div 
         className="flex flex-row flex-wrap items-start justify-center gap-5"
