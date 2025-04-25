@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from 'motion/react'
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
+import MultipleSelector, { Option } from "@/components/ui/MultiSelect";
 
 interface PortfolioItem {
   id: number
@@ -93,12 +94,51 @@ const PortfolioItems: PortfolioItem[] = [
   }
 ]
 
+const filterRoles = [
+  { label: 'All Roles', value: 'All'},
+  { label: 'Data Analyst', value: 'Data Analyst' },
+  { label: 'Data Scientist', value: 'Data Scientist'},
+  { label: 'Data Engineer', value: 'Data Engineer'},
+  { label: 'Front-End Engineer', value: 'Front-End Engineer'},
+]
+
+const filterTools = [
+  { label: 'R', value: 'R' },
+  { label: 'SPSS', value: 'SPSS' },
+  { label: 'Python', value: 'Python' },
+  { label: 'Jupyter Notebook', value: 'Jupyter Notebook' },
+  { label: 'PostgreSQL', value: 'PostgreSQL' },
+  { label: 'Kafka', value: 'Kafka' },
+  { label: 'Debezium', value: 'Debezium' },
+  { label: 'Airflow', value: 'Airflow' },
+  { label: 'ClickHouse', value: 'ClickHouse' },
+  { label: 'dbt', value: 'dbt' },
+  { label: 'Cube', value: 'Cube' },
+  { label: 'Metabase', value: 'Metabase' },
+  { label: 'React', value: 'React' },
+  { label: 'Vite', value: 'Vite' },
+  { label: 'HTML', value: 'HTML' },
+  { label: 'CSS', value: 'CSS' },
+  { label: 'JavaScript', value: 'JavaScript' },
+  { label: 'TypeScript', value: 'TypeScript' },
+  { label: 'ShadCN', value: 'ShadCN' },
+  { label: 'Tailwind', value: 'Tailwind' },
+  { label: 'Framer Motion', value: 'Framer Motion' },
+];
+
+
 export function Portfolios() {
   const [selectedRole, setSelectedRole] = useState<string>('All')
+  const [selectedTools, setSelectedTools] = useState<Option[]>([])
+
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [direction, setDirection] = useState<'left'|'right'>('right')
 
-  const filteredData = PortfolioItems.filter(item => selectedRole === 'All' ? true : item.role === selectedRole)
+  const filteredData = PortfolioItems.filter(
+    item => selectedRole === 'All' ? true : item.role === selectedRole
+  ).filter(
+    item => selectedTools.length > 0 ? selectedTools.some(option => item.tools.includes(option.value)) : true
+  )
 
   const itemsPerPage = 4
 
@@ -124,13 +164,24 @@ export function Portfolios() {
             <SelectValue placeholder="Role"/>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value='All'>All Roles</SelectItem>
-            <SelectItem value='Data Analyst'>Data Analyst</SelectItem>
-            <SelectItem value='Data Scientist'>Data Scientist</SelectItem>
-            <SelectItem value='Data Engineer'>Data Engineer</SelectItem>
-            <SelectItem value='Front-End Engineer'>Front-End Engineer</SelectItem>
+            {
+              filterRoles.map((item) => (
+                <SelectItem value={item.value}>{item.label}</SelectItem>
+              ))
+            }
           </SelectContent>
         </Select>
+        <MultipleSelector
+          defaultOptions={filterTools}
+          placeholder="Tools"
+          emptyIndicator={
+            <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+              no results found.
+            </p>
+          }
+          maxCount={3}
+          onChange={setSelectedTools}
+        />
       </div>
       <AnimatePresence mode='wait' initial={false}>
       <motion.div 
