@@ -1,7 +1,7 @@
 import { Portfolio } from "@/components/Card/Portfolio";
 import { Reveal } from "@/components/Reveal/Reveal";
 import Test from '../../assets/icons/linkedin-icon-black-png.png'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from 'motion/react'
@@ -58,7 +58,7 @@ const PortfolioItems: PortfolioItem[] = [
     title: 'ELT Pipeline',
     img: Test,
     startDate: '2025-03-01',
-    role: 'Analytics Engineer',
+    role: 'Data Engineer',
     tools: [
       'PostgreSQL',
       'Kafka',
@@ -76,7 +76,7 @@ const PortfolioItems: PortfolioItem[] = [
     title: 'Personal website',
     img: Test,
     startDate: '2025-04-01',
-    role: 'Front-end Engineer',
+    role: 'Front-End Engineer',
     tools: [
       'React',
       'Vite',
@@ -99,7 +99,7 @@ export function Portfolios() {
 
   const filteredData = PortfolioItems.filter(item => selectedRole ? item.role === selectedRole : true)
 
-  const itemsPerPage = 1
+  const itemsPerPage = 4
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)
 
@@ -108,15 +108,25 @@ export function Portfolios() {
     currentPage * itemsPerPage
   )
 
-  useEffect(() => {
-    console.log(direction)
-  },[direction])
-
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-background-dark text-text-inverted gap-10">
+    <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-10">
+      
+      <select
+        onChange={(e) => {
+          setSelectedRole(e.target.value || null);
+          setCurrentPage(1)
+        }}
+        className="text-black bg-white mt-30"
+      >
+        <option value=''>All</option>
+        <option value='Data Analyst'>Data Analyst</option>
+        <option value='Data Scientist'>Data Scientist</option>
+        <option value='Data Engineer'>Data Engineer</option>
+        <option value='Front-End Engineer'>Front-End Engineer</option>
+      </select>
       <AnimatePresence mode='wait' initial={false}>
       <motion.div 
-        className="flex flex-row flex-wrap items-center justify-center gap-5 mt-20"
+        className="flex flex-row flex-wrap items-start justify-center gap-5"
         key={currentPage}
         initial={{ opacity: 0, x: direction === 'right' ? "100%" : "-100%" }}
         animate={{ opacity: 1, x: 0 }}
