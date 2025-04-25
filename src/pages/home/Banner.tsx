@@ -161,7 +161,7 @@ export function Banner() {
       style={{
         backgroundImage,
       }}
-      className="h-screen w-full flex flex-col justify-center gap-10 items-center text-text-inverted"
+      className="h-screen relative w-full flex flex-col justify-center gap-10 items-center text-text-inverted"
     >
       <div className="flex flex-col items-center mt-10 cursor-default">
         <motion.span
@@ -197,12 +197,12 @@ export function Banner() {
           <Marquee items={techStackItems2} />
         </div>
       </motion.div>
-      <div className="absolute flex flex-row gap-1 items-center bottom-5">
+      <motion.div className="absolute flex flex-row gap-1 items-center bottom-5">
         <ArrowDown className="animate-bounce" />
         <span className="inline-block align-middle cursor-default">
           Scroll-down to see more
         </span>
-      </div>
+      </motion.div>
     </motion.section>
   )
 }
