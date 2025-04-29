@@ -8,6 +8,7 @@ import { forwardRef, useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
 import { cn } from '@/lib/utils';
+import { Tooltip, TooltipProvider, TooltipContent, TooltipTrigger } from './tooltip';
 
 export interface Option {
   value: string;
@@ -429,6 +430,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
     const clearExtraOptions = () => {
         const newSelectedValues = selected.slice(0, maxCount);
         setSelected(newSelectedValues);
+        onChange?.(newSelectedValues)
       };
 
     return (
@@ -447,7 +449,9 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
       >
         <div
           className={cn(
-            'min-h-10 rounded-md border border-input text-base ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 md:text-sm',
+            `min-h-10 rounded-md border border-input text-base 
+            ${/* 'ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2' */ ''} 
+            md:text-sm`,
             {
               'px-3 py-2': selected.length !== 0,
               'cursor-text': !disabled && selected.length !== 0,
@@ -496,27 +500,40 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
               );
             })}
             {selected.length > maxCount && (
-                <Badge
-                    className={cn(
-                        'data-[disabled]:bg-muted-foreground data-[disabled]:text-muted data-[disabled]:hover:bg-muted-foreground',
-                        'data-[fixed]:bg-muted-foreground data-[fixed]:text-muted data-[fixed]:hover:bg-muted-foreground',
-                        badgeClassName,
-                    )}
-                >
-                    {`+ ${selected.length - maxCount} more`}
-                    <button
-                        type="button"
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Badge
                         className={cn(
-                        'ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
+                            'data-[disabled]:bg-muted-foreground data-[disabled]:text-muted data-[disabled]:hover:bg-muted-foreground',
+                            'data-[fixed]:bg-muted-foreground data-[fixed]:text-muted data-[fixed]:hover:bg-muted-foreground',
+                            badgeClassName,
                         )}
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            clearExtraOptions();
-                        }}
                     >
-                        <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
-                    </button>
-                </Badge>
+                        {`+ ${selected.length - maxCount} more`}
+                        <button
+                            type="button"
+                            className={cn(
+                            'ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
+                            )}
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                clearExtraOptions();
+                            }}
+                        >
+                            <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                        </button>
+                    </Badge>
+                  </TooltipTrigger>
+                  <TooltipContent side='bottom'>
+                    {
+                      selected.slice(maxCount, selected.length).map((item) => (
+                        <p>{item.label}</p>
+                      ))
+                    }
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             )}
             {/* Avoid having the "Search" Icon */}
             <CommandPrimitive.Input
@@ -568,7 +585,13 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
             </button>
           </div>
         </div>
-        <div className="relative">
+        <div 
+          data-state={open ? 'open' : 'closed'}
+          className={cn(
+            "relative z-10",
+            "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+            "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
+          )}>
           {open && (
             <CommandList
               className="absolute top-1 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in"

@@ -91,7 +91,7 @@ const PortfolioItems: PortfolioItem[] = [
       'Framer Motion',
     ],
     briefDescription: 'Personal project to create a website and showcasing my front-end skill that I learned recently.'
-  }
+  },
 ]
 
 const filterRoles = [
@@ -151,7 +151,8 @@ export function Portfolios() {
 
   return (
     <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-10">
-      <div className="flex flex-row gap-2 mt-30">
+      <div className="flex flex-row justify-center items-center gap-2 mt-30">
+        <div>
         <Select
           onValueChange={(e) => {
             setSelectedRole(e)
@@ -159,7 +160,7 @@ export function Portfolios() {
           }}
         >
           <SelectTrigger
-            className="bg-white text-black w-[200px]"
+            className="bg-white text-black w-auto min-h-10"
           >
             <SelectValue placeholder="Role"/>
           </SelectTrigger>
@@ -171,17 +172,24 @@ export function Portfolios() {
             }
           </SelectContent>
         </Select>
+        </div>
+        <div>
         <MultipleSelector
           defaultOptions={filterTools}
           placeholder="Tools"
           emptyIndicator={
-            <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-              no results found.
+            <p className="text-center leading-10 text-gray-600 dark:text-gray-400">
+              No tool found
             </p>
           }
           maxCount={3}
-          onChange={setSelectedTools}
+          onChange={(e) => {
+            setSelectedTools(e)
+            setCurrentPage(1)
+          }}
+          className="bg-white text-black w-auto"
         />
+        </div>
       </div>
       <AnimatePresence mode='wait' initial={false}>
       <motion.div 
@@ -194,7 +202,7 @@ export function Portfolios() {
       >
         {
           paginatedData.map((item) => (
-            <Reveal slide={true} vertical={false}>
+            <Reveal slide={true} vertical={true}>
               <Portfolio 
                 key={item.id}
                 img={item.img}
