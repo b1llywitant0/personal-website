@@ -1,6 +1,5 @@
 import { Portfolio } from '@/components/Card/Portfolio'
 import { Reveal } from '@/components/Reveal/Reveal'
-import Test from '../../assets/icons/linkedin-icon-black-png.png'
 import { useState } from 'react'
 import { ArrowUpDown, CalendarArrowDown, CalendarArrowUp, ChevronLeft, ChevronRight, ListFilter } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -29,7 +28,7 @@ const PortfolioItems: PortfolioItem[] = [
     id: 1,
     title:
       'The correlation between viral genetics and the progression of Hepatitis B disease',
-    img: Test,
+    img: '',
     startDate: '2021-10-01',
     role: 'Data Analyst',
     tools: ['R', 'SPSS'],
@@ -39,7 +38,7 @@ const PortfolioItems: PortfolioItem[] = [
   {
     id: 2,
     title: 'Philadephia Property Value Prediction',
-    img: Test,
+    img: '',
     startDate: '2022-04-10',
     role: 'Data Scientist',
     tools: ['Python', 'Jupyter Notebook'],
@@ -48,7 +47,7 @@ const PortfolioItems: PortfolioItem[] = [
   {
     id: 3,
     title: 'CMK',
-    img: Test,
+    img: '',
     startDate: '2024-09-01',
     role: 'Data Analyst',
     tools: ['Python', 'Jupyter Notebook'],
@@ -57,7 +56,7 @@ const PortfolioItems: PortfolioItem[] = [
   {
     id: 4,
     title: 'ELT Pipeline',
-    img: Test,
+    img: '',
     startDate: '2025-03-01',
     role: 'Data Engineer',
     tools: [
@@ -75,12 +74,11 @@ const PortfolioItems: PortfolioItem[] = [
   {
     id: 5,
     title: 'Personal website',
-    img: Test,
+    img: '',
     startDate: '2025-04-01',
     role: 'Front-End Engineer',
     tools: [
-      'React',
-      'Vite',
+      'React+Vite',
       'HTML',
       'CSS',
       'JavaScript',
@@ -137,10 +135,8 @@ export function Portfolios() {
 
   const filteredData = PortfolioItems
   .filter((item) => {
-    // Filter by role (if not 'All')
     const roleMatch = selectedRole === 'All' || item.role === selectedRole;
 
-    // Filter by tools (only if selectedTools contains items)
     const toolsMatch =
       selectedTools.length === 0 ||
       selectedTools.some((option) => item.tools.includes(option.value));
@@ -149,9 +145,9 @@ export function Portfolios() {
   })
   .sort((a, b) => {
     if (ascending) {
-      return a.startDate.localeCompare(b.startDate); // Ascending sort
+      return a.startDate.localeCompare(b.startDate);
     }
-    return b.startDate.localeCompare(a.startDate); // Descending sort
+    return b.startDate.localeCompare(a.startDate);
   });
 
   const itemsPerPage = 4
@@ -164,7 +160,7 @@ export function Portfolios() {
   )
 
   return (
-    <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-8">
+    <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-8 robot-normal">
       <div className="flex flex-row justify-center items-center gap-4 mt-25 bg-gray-600/40 rounded-md p-3">
         <ListFilter />
         <div>
@@ -206,13 +202,13 @@ export function Portfolios() {
         />
         <div className='flex flex-row gap-3 items-center'>
           <ArrowUpDown />
-          <Button className={`bg-gray-500 ${ascending ? 'ring-2 ring-white' : ''}`} onClick={() => {
-            setAscending(true)
+          <Button className={`bg-gray-500 ${!ascending ? 'ring-2 ring-white' : ''}`} onClick={() => {
+            setAscending(false)
           }}>
             <CalendarArrowDown color='white' className='hover:'/>
           </Button>
-          <Button className={`bg-gray-500 ${!ascending ? 'ring-2 ring-white' : ''}`} onClick={() => {
-            setAscending(false)
+          <Button className={`bg-gray-500 ${ascending ? 'ring-2 ring-white' : ''}`} onClick={() => {
+            setAscending(true)
           }}>
             <CalendarArrowUp color='white'/>
           </Button>
