@@ -1,5 +1,5 @@
-import { Portfolio } from "@/components/Card/Portfolio";
-import { Reveal } from "@/components/Reveal/Reveal";
+import { Portfolio } from '@/components/Card/Portfolio'
+import { Reveal } from '@/components/Reveal/Reveal'
 
 export function Blogs() {
   return (

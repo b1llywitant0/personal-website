@@ -16,7 +16,7 @@ export function Reveal({
   duration = 0.5,
   vertical = true,
   slideBackground = '#FFFFFF',
-  viewAmount=0.5
+  viewAmount = 0.5,
 }: RevealProps) {
   const targetRef = useRef(null)
   const isInView = useInView(targetRef, { once: true, amount: viewAmount })

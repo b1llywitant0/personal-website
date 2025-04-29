@@ -1,12 +1,18 @@
-import { Portfolio } from "@/components/Card/Portfolio";
-import { Reveal } from "@/components/Reveal/Reveal";
+import { Portfolio } from '@/components/Card/Portfolio'
+import { Reveal } from '@/components/Reveal/Reveal'
 import Test from '../../assets/icons/linkedin-icon-black-png.png'
-import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react'
+import { ChevronLeft, ChevronRight, ListFilter } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { AnimatePresence, motion } from 'motion/react'
-import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
-import MultipleSelector, { Option } from "@/components/ui/MultiSelect";
+import {
+  Select,
+  SelectItem,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import MultipleSelector, { Option } from '@/components/ui/MultiSelect'
 
 interface PortfolioItem {
   id: number
@@ -15,21 +21,20 @@ interface PortfolioItem {
   startDate: string
   role: string
   tools: string[]
-  briefDescription: string    
+  briefDescription: string
 }
 
 const PortfolioItems: PortfolioItem[] = [
   {
     id: 1,
-    title: 'The correlation between viral genetics and the progression of Hepatitis B disease',
+    title:
+      'The correlation between viral genetics and the progression of Hepatitis B disease',
     img: Test,
     startDate: '2021-10-01',
     role: 'Data Analyst',
-    tools: [
-      'R',
-      'SPSS',
-    ],
-    briefDescription: 'The dissertation of my manager. I single-handedly helped with the data analysis, including the selection of statistical methods used.'
+    tools: ['R', 'SPSS'],
+    briefDescription:
+      'The dissertation of my manager. I single-handedly helped with the data analysis, including the selection of statistical methods used.',
   },
   {
     id: 2,
@@ -37,11 +42,8 @@ const PortfolioItems: PortfolioItem[] = [
     img: Test,
     startDate: '2022-04-10',
     role: 'Data Scientist',
-    tools: [
-      'Python',
-      'Jupyter Notebook',
-    ],
-    briefDescription: 'My first machine learning project.'
+    tools: ['Python', 'Jupyter Notebook'],
+    briefDescription: 'My first machine learning project.',
   },
   {
     id: 3,
@@ -49,11 +51,8 @@ const PortfolioItems: PortfolioItem[] = [
     img: Test,
     startDate: '2024-09-01',
     role: 'Data Analyst',
-    tools: [
-      'Python',
-      'Jupyter Notebook',
-    ],
-    briefDescription: 'Digital marketing analyst.'
+    tools: ['Python', 'Jupyter Notebook'],
+    briefDescription: 'Digital marketing analyst.',
   },
   {
     id: 4,
@@ -71,7 +70,7 @@ const PortfolioItems: PortfolioItem[] = [
       'Cube',
       'Metabase',
     ],
-    briefDescription: 'My first data engineer portfolio.'
+    briefDescription: 'My first data engineer portfolio.',
   },
   {
     id: 5,
@@ -90,16 +89,17 @@ const PortfolioItems: PortfolioItem[] = [
       'Tailwind',
       'Framer Motion',
     ],
-    briefDescription: 'Personal project to create a website and showcasing my front-end skill that I learned recently.'
+    briefDescription:
+      'Personal project to create a website and showcasing my front-end skill that I learned recently.',
   },
 ]
 
 const filterRoles = [
-  { label: 'All Roles', value: 'All'},
+  { label: 'All Roles', value: 'All' },
   { label: 'Data Analyst', value: 'Data Analyst' },
-  { label: 'Data Scientist', value: 'Data Scientist'},
-  { label: 'Data Engineer', value: 'Data Engineer'},
-  { label: 'Front-End Engineer', value: 'Front-End Engineer'},
+  { label: 'Data Scientist', value: 'Data Scientist' },
+  { label: 'Data Engineer', value: 'Data Engineer' },
+  { label: 'Front-End Engineer', value: 'Front-End Engineer' },
 ]
 
 const filterTools = [
@@ -124,20 +124,21 @@ const filterTools = [
   { label: 'ShadCN', value: 'ShadCN' },
   { label: 'Tailwind', value: 'Tailwind' },
   { label: 'Framer Motion', value: 'Framer Motion' },
-];
-
+]
 
 export function Portfolios() {
   const [selectedRole, setSelectedRole] = useState<string>('All')
   const [selectedTools, setSelectedTools] = useState<Option[]>([])
 
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [direction, setDirection] = useState<'left'|'right'>('right')
+  const [direction, setDirection] = useState<'left' | 'right'>('right')
 
-  const filteredData = PortfolioItems.filter(
-    item => selectedRole === 'All' ? true : item.role === selectedRole
-  ).filter(
-    item => selectedTools.length > 0 ? selectedTools.some(option => item.tools.includes(option.value)) : true
+  const filteredData = PortfolioItems.filter((item) =>
+    selectedRole === 'All' ? true : item.role === selectedRole
+  ).filter((item) =>
+    selectedTools.length > 0
+      ? selectedTools.some((option) => item.tools.includes(option.value))
+      : true
   )
 
   const itemsPerPage = 4
@@ -145,65 +146,61 @@ export function Portfolios() {
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)
 
   const paginatedData = filteredData.slice(
-    (currentPage - 1) * itemsPerPage, 
+    (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
 
   return (
     <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-10">
-      <div className="flex flex-row justify-center items-center gap-2 mt-30">
+      <div className="flex flex-row justify-center items-center gap-2 mt-30 bg-gray-600/40 rounded-md p-3">
+        <ListFilter />
         <div>
-        <Select
-          onValueChange={(e) => {
-            setSelectedRole(e)
-            setCurrentPage(1)
-          }}
-        >
-          <SelectTrigger
-            className="bg-white text-black w-auto min-h-10"
+          <Select
+            onValueChange={(e) => {
+              setSelectedRole(e)
+              setCurrentPage(1)
+            }}
           >
-            <SelectValue placeholder="Role"/>
-          </SelectTrigger>
-          <SelectContent>
-            {
-              filterRoles.map((item) => (
+            <SelectTrigger className="bg-white text-black w-auto min-h-10">
+              <SelectValue placeholder="Role" />
+            </SelectTrigger>
+            <SelectContent>
+              {filterRoles.map((item) => (
                 <SelectItem value={item.value}>{item.label}</SelectItem>
-              ))
-            }
-          </SelectContent>
-        </Select>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div>
-        <MultipleSelector
-          defaultOptions={filterTools}
-          placeholder="Tools"
-          emptyIndicator={
-            <p className="text-center leading-10 text-gray-600 dark:text-gray-400">
-              No tool found
-            </p>
-          }
-          maxCount={3}
-          onChange={(e) => {
-            setSelectedTools(e)
-            setCurrentPage(1)
-          }}
-          className="bg-white text-black w-auto"
-        />
+          <MultipleSelector
+            defaultOptions={filterTools}
+            placeholder="Tools"
+            emptyIndicator={
+              <p className="text-center leading-10 text-gray-600 dark:text-gray-400">
+                No tool found
+              </p>
+            }
+            maxCount={3}
+            onChange={(e) => {
+              setSelectedTools(e)
+              setCurrentPage(1)
+            }}
+            className="bg-white text-black w-auto"
+          />
         </div>
       </div>
-      <AnimatePresence mode='wait' initial={false}>
-      <motion.div 
-        className="flex flex-row flex-wrap items-start justify-center gap-5"
-        key={currentPage}
-        initial={{ opacity: 0, x: direction === 'right' ? "100%" : "-100%" }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: direction === 'right' ? "-100%" : "100%" }}
-        transition={{ duration: 0.5, ease:'easeInOut'}}  
-      >
-        {
-          paginatedData.map((item) => (
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          className="flex flex-row flex-wrap items-start justify-center gap-5"
+          key={currentPage}
+          initial={{ opacity: 0, x: direction === 'right' ? '100%' : '-100%' }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: direction === 'right' ? '-100%' : '100%' }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+        >
+          {paginatedData.map((item) => (
             <Reveal slide={true} vertical={true}>
-              <Portfolio 
+              <Portfolio
                 key={item.id}
                 img={item.img}
                 title={item.title}
@@ -212,34 +209,37 @@ export function Portfolios() {
                 briefDescription={item.briefDescription}
               />
             </Reveal>
-          ))
-        }        
-      </motion.div>
+          ))}
+        </motion.div>
       </AnimatePresence>
-      {
-       currentPage != 1 ?  
-       <div className="absolute left-5 top-1/2 w-fill">
-        <Button onClick={() => {
-          setDirection('left')
-          setTimeout(() => setCurrentPage(currentPage-1),0)
-        }}>
-          <ChevronLeft />
-        </Button>
-       </div>
-      : ''
-      }
-      {
-       currentPage != totalPages ?  
-       <div className="absolute right-5 top-1/2 w-fill">
-        <Button onClick={() => {
-          setDirection('right')
-          setTimeout(() => setCurrentPage(currentPage+1),0)
-        }}>
-          <ChevronRight />
-        </Button>
-       </div>
-      : ''
-      }
+      {currentPage != 1 ? (
+        <div className="absolute left-5 top-1/2 w-fill">
+          <Button
+            onClick={() => {
+              setDirection('left')
+              setTimeout(() => setCurrentPage(currentPage - 1), 0)
+            }}
+          >
+            <ChevronLeft />
+          </Button>
+        </div>
+      ) : (
+        ''
+      )}
+      {currentPage != totalPages ? (
+        <div className="absolute right-5 top-1/2 w-fill">
+          <Button
+            onClick={() => {
+              setDirection('right')
+              setTimeout(() => setCurrentPage(currentPage + 1), 0)
+            }}
+          >
+            <ChevronRight />
+          </Button>
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   )
 }
