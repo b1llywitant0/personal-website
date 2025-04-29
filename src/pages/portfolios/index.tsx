@@ -2,7 +2,7 @@ import { Portfolio } from '@/components/Card/Portfolio'
 import { Reveal } from '@/components/Reveal/Reveal'
 import Test from '../../assets/icons/linkedin-icon-black-png.png'
 import { useState } from 'react'
-import { ChevronLeft, ChevronRight, ListFilter } from 'lucide-react'
+import { ArrowUpDown, CalendarArrowDown, CalendarArrowUp, ChevronLeft, ChevronRight, ListFilter } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { AnimatePresence, motion } from 'motion/react'
 import {
@@ -133,13 +133,26 @@ export function Portfolios() {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [direction, setDirection] = useState<'left' | 'right'>('right')
 
-  const filteredData = PortfolioItems.filter((item) =>
-    selectedRole === 'All' ? true : item.role === selectedRole
-  ).filter((item) =>
-    selectedTools.length > 0
-      ? selectedTools.some((option) => item.tools.includes(option.value))
-      : true
-  )
+  const [ascending, setAscending] = useState<boolean>(true)
+
+  const filteredData = PortfolioItems
+  .filter((item) => {
+    // Filter by role (if not 'All')
+    const roleMatch = selectedRole === 'All' || item.role === selectedRole;
+
+    // Filter by tools (only if selectedTools contains items)
+    const toolsMatch =
+      selectedTools.length === 0 ||
+      selectedTools.some((option) => item.tools.includes(option.value));
+
+    return roleMatch && toolsMatch;
+  })
+  .sort((a, b) => {
+    if (ascending) {
+      return a.startDate.localeCompare(b.startDate); // Ascending sort
+    }
+    return b.startDate.localeCompare(a.startDate); // Descending sort
+  });
 
   const itemsPerPage = 4
 
@@ -151,8 +164,8 @@ export function Portfolios() {
   )
 
   return (
-    <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-10">
-      <div className="flex flex-row justify-center items-center gap-2 mt-30 bg-gray-600/40 rounded-md p-3">
+    <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-8">
+      <div className="flex flex-row justify-center items-center gap-4 mt-25 bg-gray-600/40 rounded-md p-3">
         <ListFilter />
         <div>
           <Select
@@ -187,6 +200,22 @@ export function Portfolios() {
             }}
             className="bg-white text-black w-auto"
           />
+        </div>
+        <div 
+          className='h-full w-0 ring ring-white/90'
+        />
+        <div className='flex flex-row gap-3 items-center'>
+          <ArrowUpDown />
+          <Button className='bg-white' onClick={() => {
+            setAscending(true)
+          }}>
+            <CalendarArrowDown color='black'/>
+          </Button>
+          <Button className='bg-white' onClick={() => {
+            setAscending(false)
+          }}>
+            <CalendarArrowUp color='black'/>
+          </Button>
         </div>
       </div>
       <AnimatePresence mode="wait" initial={false}>
