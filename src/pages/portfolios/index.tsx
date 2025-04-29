@@ -206,15 +206,15 @@ export function Portfolios() {
         />
         <div className='flex flex-row gap-3 items-center'>
           <ArrowUpDown />
-          <Button className='bg-white' onClick={() => {
+          <Button className={`bg-gray-500 ${ascending ? 'ring-2 ring-white' : ''}`} onClick={() => {
             setAscending(true)
           }}>
-            <CalendarArrowDown color='black'/>
+            <CalendarArrowDown color='white' className='hover:'/>
           </Button>
-          <Button className='bg-white' onClick={() => {
+          <Button className={`bg-gray-500 ${!ascending ? 'ring-2 ring-white' : ''}`} onClick={() => {
             setAscending(false)
           }}>
-            <CalendarArrowUp color='black'/>
+            <CalendarArrowUp color='white'/>
           </Button>
         </div>
       </div>
