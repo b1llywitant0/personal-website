@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import MultipleSelector, { Option } from '@/components/ui/MultiSelect'
+import EijkmanPic from '@/assets/img/eijkman-pic.png'
 
 interface PortfolioItem {
   id: number
@@ -19,6 +20,7 @@ interface PortfolioItem {
   img: string
   startDate: string
   role: string
+  linkTo: string
   tools: string[]
   briefDescription: string
 }
@@ -28,9 +30,10 @@ const PortfolioItems: PortfolioItem[] = [
     id: 1,
     title:
       'The correlation between viral genetics and the progression of Hepatitis B disease',
-    img: '',
+    img: EijkmanPic,
     startDate: '2021-10-01',
     role: 'Data Analyst',
+    linkTo: '/portfolios/eijkman-main-research',
     tools: ['R', 'SPSS'],
     briefDescription:
       'The dissertation of my manager. I single-handedly helped with the data analysis, including the selection of statistical methods used.',
@@ -41,6 +44,7 @@ const PortfolioItems: PortfolioItem[] = [
     img: '',
     startDate: '2022-04-10',
     role: 'Data Scientist',
+    linkTo: '/portfolios/purwadhika-final-project',
     tools: ['Python', 'Jupyter Notebook'],
     briefDescription: 'My first machine learning project.',
   },
@@ -50,6 +54,7 @@ const PortfolioItems: PortfolioItem[] = [
     img: '',
     startDate: '2024-09-01',
     role: 'Data Analyst',
+    linkTo: '/portfolios/cmk-summary',
     tools: ['Python', 'Jupyter Notebook'],
     briefDescription: 'Digital marketing analyst.',
   },
@@ -59,6 +64,7 @@ const PortfolioItems: PortfolioItem[] = [
     img: '',
     startDate: '2025-03-01',
     role: 'Data Engineer',
+    linkTo: '/portfolios/elt-dbt-semantic-layer',
     tools: [
       'PostgreSQL',
       'Kafka',
@@ -77,8 +83,10 @@ const PortfolioItems: PortfolioItem[] = [
     img: '',
     startDate: '2025-04-01',
     role: 'Front-End Engineer',
+    linkTo: '/portfolios/personal-website-description',
     tools: [
-      'React+Vite',
+      'React',
+      'Vite',
       'HTML',
       'CSS',
       'JavaScript',
@@ -230,6 +238,7 @@ export function Portfolios() {
                 img={item.img}
                 title={item.title}
                 startDate={item.startDate}
+                linkTo={item.linkTo}
                 tools={item.tools}
                 briefDescription={item.briefDescription}
               />
