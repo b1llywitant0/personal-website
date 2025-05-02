@@ -1,6 +1,6 @@
 import { createClient } from '@sanity/client'
 
-export const client = createClient({
+export const sanityClient = createClient({
   projectId: 'g0u76tke', // find this at manage.sanity.io or in your sanity.json
   dataset: 'production', // this is from those question during 'sanity init'
   useCdn: true,

@@ -1,6 +1,6 @@
 import { Portfolio } from '@/components/Card/Portfolio'
 import { Reveal } from '@/components/Reveal/Reveal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ArrowUpDown,
   CalendarArrowDown,
@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/select'
 import MultipleSelector, { Option } from '@/components/ui/MultiSelect'
 import EijkmanPic from '@/assets/img/eijkman-pic.png'
+import { sanityClient } from '@/client'
 
 interface PortfolioItem {
   id: number
@@ -171,6 +172,32 @@ export function Portfolios() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
+
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    sanityClient.fetch(
+      `*[_type == 'post'] {
+        title,
+        slug,
+        author,
+        categories,
+        publishedAt,
+        briefDescription,
+        body,
+        mainImage {
+          asset -> {
+            _id,
+            url
+          },
+          alt
+        }
+      }`
+    ).then((data) => {
+      console.log(data)
+      setPosts(data)
+    }).catch(console.error)
+  }, [])
 
   return (
     <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-8 robot-normal">
