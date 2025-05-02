@@ -11,9 +11,14 @@ export function ArticleLayout() {
 
   return (
     <div className="relative h-full w-full items-center bg-background-dark overflow-auto no-scrollbar">
-    <AnimatePresence mode="wait">
-        <Button className='cursor-pointer' onClick={() => {navigate(-1)}}>
-          <ChevronLeft color='white' />
+      <AnimatePresence mode="wait">
+        <Button
+          className="cursor-pointer"
+          onClick={() => {
+            navigate(-1)
+          }}
+        >
+          <ChevronLeft color="white" />
         </Button>
         <motion.div
           key={location.pathname}

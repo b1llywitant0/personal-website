@@ -1,7 +1,14 @@
 import { Portfolio } from '@/components/Card/Portfolio'
 import { Reveal } from '@/components/Reveal/Reveal'
 import { useState } from 'react'
-import { ArrowUpDown, CalendarArrowDown, CalendarArrowUp, ChevronLeft, ChevronRight, ListFilter } from 'lucide-react'
+import {
+  ArrowUpDown,
+  CalendarArrowDown,
+  CalendarArrowUp,
+  ChevronLeft,
+  ChevronRight,
+  ListFilter,
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { AnimatePresence, motion } from 'motion/react'
 import {
@@ -141,22 +148,20 @@ export function Portfolios() {
 
   const [ascending, setAscending] = useState<boolean>(true)
 
-  const filteredData = PortfolioItems
-  .filter((item) => {
-    const roleMatch = selectedRole === 'All' || item.role === selectedRole;
+  const filteredData = PortfolioItems.filter((item) => {
+    const roleMatch = selectedRole === 'All' || item.role === selectedRole
 
     const toolsMatch =
       selectedTools.length === 0 ||
-      selectedTools.some((option) => item.tools.includes(option.value));
+      selectedTools.some((option) => item.tools.includes(option.value))
 
-    return roleMatch && toolsMatch;
-  })
-  .sort((a, b) => {
+    return roleMatch && toolsMatch
+  }).sort((a, b) => {
     if (ascending) {
-      return a.startDate.localeCompare(b.startDate);
+      return a.startDate.localeCompare(b.startDate)
     }
-    return b.startDate.localeCompare(a.startDate);
-  });
+    return b.startDate.localeCompare(a.startDate)
+  })
 
   const itemsPerPage = 4
 
@@ -205,20 +210,24 @@ export function Portfolios() {
             className="bg-white text-black w-auto"
           />
         </div>
-        <div 
-          className='h-full w-0 ring ring-white/90'
-        />
-        <div className='flex flex-row gap-3 items-center'>
+        <div className="h-full w-0 ring ring-white/90" />
+        <div className="flex flex-row gap-3 items-center">
           <ArrowUpDown />
-          <Button className={`bg-gray-500 ${!ascending ? 'ring-2 ring-white' : ''}`} onClick={() => {
-            setAscending(false)
-          }}>
-            <CalendarArrowDown color='white' className='hover:'/>
+          <Button
+            className={`bg-gray-500 ${!ascending ? 'ring-2 ring-white' : ''}`}
+            onClick={() => {
+              setAscending(false)
+            }}
+          >
+            <CalendarArrowDown color="white" className="hover:" />
           </Button>
-          <Button className={`bg-gray-500 ${ascending ? 'ring-2 ring-white' : ''}`} onClick={() => {
-            setAscending(true)
-          }}>
-            <CalendarArrowUp color='white'/>
+          <Button
+            className={`bg-gray-500 ${ascending ? 'ring-2 ring-white' : ''}`}
+            onClick={() => {
+              setAscending(true)
+            }}
+          >
+            <CalendarArrowUp color="white" />
           </Button>
         </div>
       </div>

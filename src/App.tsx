@@ -13,7 +13,7 @@ const router = createBrowserRouter(
     {
       element: <ArticleLayout />,
       children: articleRoutes,
-    }
+    },
   ],
   {
     basename: '/personal-website',
