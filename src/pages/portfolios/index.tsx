@@ -23,7 +23,6 @@ import { sanityClient } from '@/client'
 import { PortableTextBlock } from '@portabletext/react'
 
 interface PortfolioItem {
-  id: number
   title: string
   mainImage: {
     alt: string
@@ -176,7 +175,6 @@ export function Portfolios() {
       )
       .then((data) => {
         setIsLoading(false)
-        console.log(data)
         setPosts(data)
       })
       .catch(console.error)
