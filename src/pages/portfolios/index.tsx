@@ -1,4 +1,4 @@
-import { Portfolio } from '@/components/Card/Portfolio'
+import { PortfolioCard } from '@/components/Card/Portfolio'
 import { Reveal } from '@/components/Reveal/Reveal'
 import { useEffect, useState } from 'react'
 import {
@@ -19,94 +19,101 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import MultipleSelector, { Option } from '@/components/ui/MultiSelect'
-import EijkmanPic from '@/assets/img/eijkman-pic.png'
 import { sanityClient } from '@/client'
+import { PortableTextBlock } from '@portabletext/react'
 
 interface PortfolioItem {
   id: number
   title: string
-  img: string
-  startDate: string
+  mainImage: {
+    alt: string
+    asset: {
+      url: string
+    }
+  }
+  createdAt: string
   role: string
-  linkTo: string
-  tools: string[]
-  briefDescription: string
+  slug: {
+    current: string
+  }
+  tools: { name: string }[]
+  briefDescription: PortableTextBlock[]
 }
 
-const PortfolioItems: PortfolioItem[] = [
-  {
-    id: 1,
-    title:
-      'The correlation between viral genetics and the progression of Hepatitis B disease',
-    img: EijkmanPic,
-    startDate: '2021-10-01',
-    role: 'Data Analyst',
-    linkTo: '/portfolios/eijkman-main-research',
-    tools: ['R', 'SPSS'],
-    briefDescription:
-      'The dissertation of my manager. I single-handedly helped with the data analysis, including the selection of statistical methods used.',
-  },
-  {
-    id: 2,
-    title: 'Philadephia Property Value Prediction',
-    img: '',
-    startDate: '2022-04-10',
-    role: 'Data Scientist',
-    linkTo: '/portfolios/purwadhika-final-project',
-    tools: ['Python', 'Jupyter Notebook'],
-    briefDescription: 'My first machine learning project.',
-  },
-  {
-    id: 3,
-    title: 'CMK',
-    img: '',
-    startDate: '2024-09-01',
-    role: 'Data Analyst',
-    linkTo: '/portfolios/cmk-summary',
-    tools: ['Python', 'Jupyter Notebook'],
-    briefDescription: 'Digital marketing analyst.',
-  },
-  {
-    id: 4,
-    title: 'ELT Pipeline',
-    img: '',
-    startDate: '2025-03-01',
-    role: 'Data Engineer',
-    linkTo: '/portfolios/elt-dbt-semantic-layer',
-    tools: [
-      'PostgreSQL',
-      'Kafka',
-      'Debezium',
-      'Airflow',
-      'ClickHouse',
-      'dbt',
-      'Cube',
-      'Metabase',
-    ],
-    briefDescription: 'My first data engineer portfolio.',
-  },
-  {
-    id: 5,
-    title: 'Personal website',
-    img: '',
-    startDate: '2025-04-01',
-    role: 'Front-End Engineer',
-    linkTo: '/portfolios/personal-website-description',
-    tools: [
-      'React',
-      'Vite',
-      'HTML',
-      'CSS',
-      'JavaScript',
-      'TypeScript',
-      'ShadCN',
-      'Tailwind',
-      'Framer Motion',
-    ],
-    briefDescription:
-      'Personal project to create a website and showcasing my front-end skill that I learned recently.',
-  },
-]
+// const PortfolioItems: PortfolioItem[] = [
+//   {
+//     id: 1,
+//     title:
+//       'The correlation between viral genetics and the progression of Hepatitis B disease',
+//     img: EijkmanPic,
+//     startDate: '2021-10-01',
+//     role: 'Data Analyst',
+//     linkTo: '/portfolios/eijkman-main-research',
+//     tools: ['R', 'SPSS'],
+//     briefDescription:
+//       'The dissertation of my manager. I single-handedly helped with the data analysis, including the selection of statistical methods used.',
+//   },
+//   {
+//     id: 2,
+//     title: 'Philadephia Property Value Prediction',
+//     img: '',
+//     startDate: '2022-04-10',
+//     role: 'Data Scientist',
+//     linkTo: '/portfolios/purwadhika-final-project',
+//     tools: ['Python', 'Jupyter Notebook'],
+//     briefDescription: 'My first machine learning project.',
+//   },
+//   {
+//     id: 3,
+//     title: 'CMK',
+//     img: '',
+//     startDate: '2024-09-01',
+//     role: 'Data Analyst',
+//     linkTo: '/portfolios/cmk-summary',
+//     tools: ['Python', 'Jupyter Notebook'],
+//     briefDescription: 'Digital marketing analyst.',
+//   },
+//   {
+//     id: 4,
+//     title: 'ELT Pipeline',
+//     img: '',
+//     startDate: '2025-03-01',
+//     role: 'Data Engineer',
+//     linkTo: '/portfolios/elt-dbt-semantic-layer',
+//     tools: [
+//       'PostgreSQL',
+//       'Kafka',
+//       'Debezium',
+//       'Airflow',
+//       'ClickHouse',
+//       'dbt',
+//       'Cube',
+//       'Metabase',
+//     ],
+//     briefDescription: 'My first data engineer portfolio.',
+//   },
+//   {
+//     id: 5,
+//     title: 'Personal website',
+//     img: '',
+//     startDate: '2025-04-01',
+//     role: 'Front-End Engineer',
+//     linkTo: '/portfolios/personal-website-description',
+//     tools: [
+//       'React',
+//       'Vite',
+//       'HTML',
+//       'CSS',
+//       'JavaScript',
+//       'TypeScript',
+//       'ShadCN',
+//       'Tailwind',
+//       'Framer Motion',
+//     ],
+//     briefDescription:
+//       'Personal project to create a website and showcasing my front-end skill that I learned recently.',
+//   },
+// ]
 
 const filterRoles = [
   { label: 'All Roles', value: 'All' },
@@ -141,6 +148,40 @@ const filterTools = [
 ]
 
 export function Portfolios() {
+  const [posts, setPosts] = useState<PortfolioItem[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsLoading(true)
+    sanityClient
+      .fetch(
+        `*[_type == 'portfolio'] {
+        title,
+        slug {
+          current
+        },
+        role,
+        tools[] -> {
+          name
+        },
+        createdAt,
+        briefDescription,
+        mainImage {
+          asset -> {
+            url
+          },
+          alt
+        }
+      }`
+      )
+      .then((data) => {
+        setIsLoading(false)
+        console.log(data)
+        setPosts(data)
+      })
+      .catch(console.error)
+  }, [])
+
   const [selectedRole, setSelectedRole] = useState<string>('All')
   const [selectedTools, setSelectedTools] = useState<Option[]>([])
 
@@ -149,20 +190,24 @@ export function Portfolios() {
 
   const [ascending, setAscending] = useState<boolean>(true)
 
-  const filteredData = PortfolioItems.filter((item) => {
-    const roleMatch = selectedRole === 'All' || item.role === selectedRole
+  const filteredData = posts
+    ?.filter((item) => {
+      const roleMatch = selectedRole === 'All' || item.role === selectedRole
 
-    const toolsMatch =
-      selectedTools.length === 0 ||
-      selectedTools.some((option) => item.tools.includes(option.value))
+      const toolsMatch =
+        selectedTools.length === 0 ||
+        selectedTools.some((option) =>
+          item.tools.some((tool) => tool.name === option.value)
+        )
 
-    return roleMatch && toolsMatch
-  }).sort((a, b) => {
-    if (ascending) {
-      return a.startDate.localeCompare(b.startDate)
-    }
-    return b.startDate.localeCompare(a.startDate)
-  })
+      return roleMatch && toolsMatch
+    })
+    .sort((a, b) => {
+      if (ascending) {
+        return a.createdAt?.localeCompare(b.createdAt)
+      }
+      return b.createdAt.localeCompare(a.createdAt)
+    })
 
   const itemsPerPage = 4
 
@@ -172,32 +217,6 @@ export function Portfolios() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
-
-  const [posts, setPosts] = useState([])
-
-  useEffect(() => {
-    sanityClient.fetch(
-      `*[_type == 'post'] {
-        title,
-        slug,
-        author,
-        categories,
-        publishedAt,
-        briefDescription,
-        body,
-        mainImage {
-          asset -> {
-            _id,
-            url
-          },
-          alt
-        }
-      }`
-    ).then((data) => {
-      console.log(data)
-      setPosts(data)
-    }).catch(console.error)
-  }, [])
 
   return (
     <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-8 robot-normal">
@@ -258,30 +277,39 @@ export function Portfolios() {
           </Button>
         </div>
       </div>
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          className="flex flex-row flex-wrap items-start justify-center gap-5"
-          key={currentPage}
-          initial={{ opacity: 0, x: direction === 'right' ? '100%' : '-100%' }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: direction === 'right' ? '-100%' : '100%' }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-        >
-          {paginatedData.map((item) => (
-            <Reveal slide={true} vertical={true}>
-              <Portfolio
-                key={item.id}
-                img={item.img}
-                title={item.title}
-                startDate={item.startDate}
-                linkTo={item.linkTo}
-                tools={item.tools}
-                briefDescription={item.briefDescription}
-              />
-            </Reveal>
-          ))}
-        </motion.div>
-      </AnimatePresence>
+      {!isLoading ? (
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            className="flex flex-row flex-wrap items-start justify-center gap-5"
+            key={currentPage}
+            initial={{
+              opacity: 0,
+              x: direction === 'right' ? '100%' : '-100%',
+            }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: direction === 'right' ? '-100%' : '100%' }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+          >
+            {paginatedData.map((item) => (
+              <Reveal slide={true} vertical={true}>
+                <PortfolioCard
+                  key={item.slug.current}
+                  img={item.mainImage.asset.url}
+                  title={item.title}
+                  startDate={item.createdAt}
+                  linkTo={item.slug.current}
+                  tools={item.tools}
+                  briefDescription={item.briefDescription}
+                />
+              </Reveal>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      ) : (
+        <div className="flex h-full items-center justify-center">
+          Loading Bos
+        </div>
+      )}
       {currentPage != 1 ? (
         <div className="absolute left-5 top-1/2 w-fill">
           <Button

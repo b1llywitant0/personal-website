@@ -9,7 +9,7 @@ interface JobProps {
   Tools?: string[]
 }
 
-export function Job(props: JobProps) {
+export function JobCard(props: JobProps) {
   return (
     <div className="w-[75vw] h-fit rounded-md bg-gray-500/40 p-5 flex flex-col roboto-normal gap-5">
       <div className="flex flex-col">
