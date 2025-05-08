@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { publicRoutes } from './pages/routes'
 import { Layout } from './pages/layout'
-import { ArticleLayout } from './pages/portfolios/articleLayout'
-import { articleRoutes } from './pages/portfolios/articleRoutes'
+import { ArticleLayout } from './pages/articleLayout'
+import { portfoliosRoutes } from './pages/portfolios/routes'
 
 const router = createBrowserRouter(
   [
@@ -12,7 +12,7 @@ const router = createBrowserRouter(
     },
     {
       element: <ArticleLayout />,
-      children: articleRoutes,
+      children: portfoliosRoutes,
     },
   ],
   {

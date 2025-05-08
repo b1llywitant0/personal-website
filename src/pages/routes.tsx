@@ -1,4 +1,5 @@
 import { RouteObject } from 'react-router-dom'
+import { portfoliosRoutes } from './portfolios/routes'
 
 export const publicRoutes: RouteObject[] = [
   {
@@ -11,13 +12,8 @@ export const publicRoutes: RouteObject[] = [
     },
   },
   {
-    path: '/portfolios',
-    lazy: async () => {
-      const { Portfolios } = await import('./portfolios')
-      return {
-        element: <Portfolios />,
-      }
-    },
+    path: '/portfolios/',
+    children: portfoliosRoutes
   },
   {
     path: '/blogs',
