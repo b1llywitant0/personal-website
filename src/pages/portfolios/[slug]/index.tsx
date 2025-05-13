@@ -1,4 +1,4 @@
-import { sanityClient } from '@/client'
+import { sanityClient, urlFor } from '@/client'
 import { useEffect, useState } from 'react'
 import { PortableText, PortableTextBlock } from '@portabletext/react'
 import { useParams } from 'react-router'
@@ -15,8 +15,6 @@ interface PortfolioItem {
   tools: { name: string }[]
   body: PortableTextBlock[]
 }
-
-
 
 export function PortfolioDetails() {
   const { slug } = useParams()
@@ -70,13 +68,16 @@ export function PortfolioDetails() {
               value={portfolio.body}
               components={{
                 types: {
-                  image: ({ value }: any) => (
-                    <img
-                      src={value.asset.url}
-                      alt={value.alt}
-                      className="w-full rounded-lg"
-                    />
-                  ),
+                  image: ({ value }) => {
+                    const imageUrl = urlFor(value).width(800).url()
+                    return (
+                      <img
+                        src={imageUrl}
+                        alt={value.alt}
+                        className="my-6 rounded-xl w-1/2"
+                      />
+                    )
+                  },
                 },
                 block: {
                   h2: ({ children }) => (
