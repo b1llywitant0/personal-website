@@ -275,7 +275,7 @@ export function Portfolios() {
           </Button>
         </div>
       </div>
-      {!isLoading ? (
+      {!isLoading && paginatedData.length > 0 ? (
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             className="flex flex-row flex-wrap items-start justify-center gap-5"
@@ -303,12 +303,16 @@ export function Portfolios() {
             ))}
           </motion.div>
         </AnimatePresence>
+      ) : !isLoading && paginatedData.length == 0 ? (
+        <div className="flex h-full items-center justify-center">
+          Nothing here Bos
+        </div>
       ) : (
         <div className="flex h-full items-center justify-center">
           Loading Bos
         </div>
       )}
-      {currentPage != 1 ? (
+      {currentPage > 1 ? (
         <div className="absolute left-5 top-1/2 w-fill">
           <Button
             onClick={() => {
@@ -322,7 +326,7 @@ export function Portfolios() {
       ) : (
         ''
       )}
-      {currentPage != totalPages ? (
+      {!currentPage && currentPage != totalPages? (
         <div className="absolute right-5 top-1/2 w-fill">
           <Button
             onClick={() => {
