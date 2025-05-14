@@ -322,13 +322,13 @@ export function Portfolios() {
         </AnimatePresence>
       ) : !isLoading && paginatedData.length == 0 ? (
         <div className="h-screen flex flex-col justify-center items-center text-white text-center px-4 roboto-normal">
-           <h1 className="text-4xl font-bold mb-4">Nothing's here</h1>
-           <p className="text-xl mb-6">Please use another filter</p>
+          <h1 className="text-4xl font-bold mb-4">Nothing's here</h1>
+          <p className="text-xl mb-6">Please use another filter</p>
         </div>
       ) : (
         <div className="h-full items-center justify-center flex flex-col gap-5 roboto-normal">
           <Loader2 className="h-20 w-20 animate-spin" />
-          <span className='animate-pulse duration-100'>Retrieving data</span>
+          <span className="animate-pulse duration-100">Retrieving data</span>
         </div>
       )}
       {currentPage > 1 ? (
