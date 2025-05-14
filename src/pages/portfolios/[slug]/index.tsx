@@ -63,7 +63,7 @@ export function PortfolioDetails() {
           if (data.length > 0) {
             setPortfolio(data[0])
             sessionStorage.setItem(slug || '', JSON.stringify(data[0]))
-            sessionStorage.setItem(`${slug}_timestamp`, currentTime.toString())  
+            sessionStorage.setItem(`${slug}_timestamp`, currentTime.toString())
           }
         })
         .catch(console.error)
@@ -103,8 +103,8 @@ export function PortfolioDetails() {
     <>
       {isLoading ? (
         <div className="h-screen items-center justify-center flex flex-col gap-5 roboto-normal">
-          <Loader2 className="h-20 w-20 animate-spin" color='white'/>
-          <span className='animate-pulse duration-100 text-white'>Loading</span>
+          <Loader2 className="h-20 w-20 animate-spin" color="white" />
+          <span className="animate-pulse duration-100 text-white">Loading</span>
         </div>
       ) : portfolio ? (
         <div className="text-white flex flex-col lg:flex-row px-10 gap-10 roboto-normal">
@@ -119,7 +119,9 @@ export function PortfolioDetails() {
               </div>
             </div>
             <aside className="hidden lg:block sticky top-1/4 h-max w-64 border-l border-gray-700 pl-4 text-sm text-gray-300">
-              <h3 className="text-white mb-3 font-semibold">Table of Contents</h3>
+              <h3 className="text-white mb-3 font-semibold">
+                Table of Contents
+              </h3>
               <ul className="space-y-1">
                 {headings.map((h) => (
                   <li

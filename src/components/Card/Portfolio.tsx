@@ -35,7 +35,7 @@ export function PortfolioCard(props: PortfolioProps) {
           <div className="absolute bottom-4 flex flex-row items-center justify-start gap-3 cursor-default flex-wrap">
             {props.tools
               ? props.tools.map((item) => (
-                  <div className="px-2 py-1 w-fit h-fit rounded-md bg-gray-500/90 text-[13px] hover:bg-gray-800">
+                  <div key={item.name} className="px-2 py-1 w-fit h-fit rounded-md bg-gray-500/90 text-[13px] hover:bg-gray-800">
                     {item.name}
                   </div>
                 ))
