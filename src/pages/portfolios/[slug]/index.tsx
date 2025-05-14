@@ -2,7 +2,7 @@ import { sanityClient, urlFor } from '@/client'
 import { useEffect, useState } from 'react'
 import { PortableText, PortableTextBlock } from '@portabletext/react'
 import { useNavigate, useParams } from 'react-router'
-import { ChevronLeft, BookOpen, Info } from 'lucide-react'
+import { ChevronLeft, BookOpen, Info, Loader2 } from 'lucide-react'
 import type { PortableTextSpan } from '@portabletext/types'
 import NotFound from '@/pages/notFound'
 
@@ -102,8 +102,9 @@ export function PortfolioDetails() {
   return (
     <>
       {isLoading ? (
-        <div className="text-white flex justify-center items-center h-screen">
-          Loading
+        <div className="h-screen items-center justify-center flex flex-col gap-5 roboto-normal">
+          <Loader2 className="h-20 w-20 animate-spin" color='white'/>
+          <span className='animate-pulse duration-100 text-white'>Loading</span>
         </div>
       ) : portfolio ? (
         <div className="text-white flex flex-col lg:flex-row px-10 gap-10 roboto-normal">
