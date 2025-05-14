@@ -1,0 +1,1 @@
+import{A as e}from"./index-z1XCOSyM.js";function r(){return e.jsx("div",{className:"flex flex-col items-center justify-center min-h-svh bg-background-dark text-text-inverted gap-10",children:e.jsx("div",{className:"flex flex-row flex-wrap items-center justify-center gap-10 mt-20"})})}export{r as Blogs};

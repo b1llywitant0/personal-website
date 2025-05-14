@@ -1,1 +1,0 @@
-import{j as e,B as t}from"./index-YdFNZnZ0.js";function s(){return e.jsx(e.Fragment,{children:e.jsx("div",{className:"flex flex-col items-center justify-center min-h-svh",children:e.jsx(t,{children:"Portfolios Click"})})})}export{s as Portfolios};
