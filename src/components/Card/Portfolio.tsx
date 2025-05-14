@@ -21,14 +21,16 @@ export function PortfolioCard(props: PortfolioProps) {
           <div className="absolute top-4 flex flex-col">
             <span className="font-bold text-[20px]">{props.title}</span>
             <span className="font-light text-[13px]">{props.startDate}</span>
-            <PortableText 
+            <PortableText
               value={props.briefDescription}
               components={{
                 block: {
-                  normal: ({ children }) => <p className='font-normal text-[15px]'>{children}</p>
-                }
+                  normal: ({ children }) => (
+                    <p className="font-normal text-[15px]">{children}</p>
+                  ),
+                },
               }}
-              />
+            />
           </div>
           <div className="absolute bottom-4 flex flex-row items-center justify-start gap-3 cursor-default flex-wrap">
             {props.tools

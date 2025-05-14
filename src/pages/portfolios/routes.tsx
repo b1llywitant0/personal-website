@@ -4,7 +4,7 @@ export const portfoliosRoutes: RouteObject[] = [
   {
     index: true,
     lazy: async () => {
-    const { Portfolios } = await import('./')
+      const { Portfolios } = await import('./')
       return {
         element: <Portfolios />,
       }

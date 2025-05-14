@@ -13,7 +13,7 @@ export const publicRoutes: RouteObject[] = [
   },
   {
     path: '/portfolios/',
-    children: portfoliosRoutes
+    children: portfoliosRoutes,
   },
   {
     path: '/blogs',

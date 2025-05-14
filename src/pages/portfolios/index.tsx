@@ -152,9 +152,22 @@ export function Portfolios() {
 
   useEffect(() => {
     setIsLoading(true)
-    sanityClient
-      .fetch(
-        `*[_type == 'portfolio'] {
+    const cachedData = sessionStorage.getItem('portfolios')
+    const cachedTimestamp = sessionStorage.getItem('portfolios_timestamp')
+
+    const currentTime = Date.now()
+
+    if (
+      cachedData &&
+      cachedTimestamp &&
+      currentTime - parseInt(cachedTimestamp) < 600000
+    ) {
+      setIsLoading(false)
+      setPosts(JSON.parse(cachedData))
+    } else {
+      sanityClient
+        .fetch(
+          `*[_type == 'portfolio'] {
         title,
         slug {
           current
@@ -172,12 +185,15 @@ export function Portfolios() {
           alt
         }
       }`
-      )
-      .then((data) => {
-        setIsLoading(false)
-        setPosts(data)
-      })
-      .catch(console.error)
+        )
+        .then((data) => {
+          setIsLoading(false)
+          setPosts(data)
+          sessionStorage.setItem('portfolios', JSON.stringify(data))
+          sessionStorage.setItem('portfolios_timestamp', currentTime.toString())
+        })
+        .catch(console.error)
+    }
   }, [])
 
   const [selectedRole, setSelectedRole] = useState<string>('All')
@@ -326,7 +342,7 @@ export function Portfolios() {
       ) : (
         ''
       )}
-      {!currentPage && currentPage != totalPages? (
+      {!currentPage && currentPage != totalPages ? (
         <div className="absolute right-5 top-1/2 w-fill">
           <Button
             onClick={() => {
