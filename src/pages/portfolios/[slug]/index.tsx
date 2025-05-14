@@ -4,6 +4,7 @@ import { PortableText, PortableTextBlock } from '@portabletext/react'
 import { useNavigate, useParams } from 'react-router'
 import { ChevronLeft, BookOpen, Info } from 'lucide-react'
 import type { PortableTextSpan } from '@portabletext/types'
+import { NotFound } from '@/pages/notFound'
 
 interface PortfolioItem {
   title: string
@@ -59,9 +60,11 @@ export function PortfolioDetails() {
         )
         .then((data) => {
           setIsLoading(false)
-          setPortfolio(data[0])
-          sessionStorage.setItem(slug || '', JSON.stringify(data[0]))
-          sessionStorage.setItem(`${slug}_timestamp`, currentTime.toString())
+          if (data.length > 0) {
+            setPortfolio(data[0])
+            sessionStorage.setItem(slug || '', JSON.stringify(data[0]))
+            sessionStorage.setItem(`${slug}_timestamp`, currentTime.toString())  
+          }
         })
         .catch(console.error)
     }
@@ -98,50 +101,51 @@ export function PortfolioDetails() {
 
   return (
     <>
-      <div className="mt-25 px-10 pb-5 fixed flex flex-row gap-2 z-5">
-        <div
-          className="group cursor-pointer h-fit flex flex-row items-center gap-1 hover:scale-115 transform transition duration-200"
-          onClick={() => navigate('/portfolios')}
-        >
-          <ChevronLeft color="white" size={25} />
-          <span className="text-white text-xl">Back</span>
-        </div>
-      </div>
-
       {isLoading ? (
         <div className="text-white flex justify-center items-center h-screen">
           Loading
         </div>
       ) : portfolio ? (
         <div className="text-white flex flex-col lg:flex-row px-10 gap-10 roboto-normal">
-          <aside className="hidden lg:block sticky top-1/4 h-max w-64 border-l border-gray-700 pl-4 text-sm text-gray-300">
-            <h3 className="text-white mb-3 font-semibold">Table of Contents</h3>
-            <ul className="space-y-1">
-              {headings.map((h) => (
-                <li
-                  key={h.id}
-                  className={`mb-2 ${h.level === 3 ? 'ml-4 text-gray-400 text-sm' : ''}`}
-                >
-                  <a
-                    href={`#${h.id}`}
-                    className="hover:text-white transition-colors duration-150"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      const el = document.getElementById(h.id)
-                      if (el) {
-                        el.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'start',
-                        })
-                      }
-                    }}
+          <div>
+            <div className="mt-25 px-10 left-0 pb-5 fixed flex flex-row gap-2 z-5">
+              <div
+                className="group cursor-pointer h-fit flex flex-row items-center gap-1 hover:scale-115 transform transition duration-200"
+                onClick={() => navigate('/portfolios')}
+              >
+                <ChevronLeft color="white" size={25} />
+                <span className="text-white text-xl">Back</span>
+              </div>
+            </div>
+            <aside className="hidden lg:block sticky top-1/4 h-max w-64 border-l border-gray-700 pl-4 text-sm text-gray-300">
+              <h3 className="text-white mb-3 font-semibold">Table of Contents</h3>
+              <ul className="space-y-1">
+                {headings.map((h) => (
+                  <li
+                    key={h.id}
+                    className={`mb-2 ${h.level === 3 ? 'ml-4 text-gray-400 text-sm' : ''}`}
                   >
-                    {h.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </aside>
+                    <a
+                      href={`#${h.id}`}
+                      className="hover:text-white transition-colors duration-150"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        const el = document.getElementById(h.id)
+                        if (el) {
+                          el.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                          })
+                        }
+                      }}
+                    >
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          </div>
 
           <article className="w-full lg:w-2/3 mt-25 mb-10">
             <h1 className="text-4xl font-bold mb-6">{portfolio.title}</h1>
@@ -259,9 +263,7 @@ export function PortfolioDetails() {
           </article>
         </div>
       ) : (
-        <div className="text-white flex justify-center items-center h-screen">
-          Not Found Baby
-        </div>
+        <NotFound />
       )}
     </>
   )
