@@ -14,7 +14,7 @@ export function NavigationBar() {
           <NavigationMenuList className="flex gap-x-10">
             <NavItem to="/">ABOUT ME</NavItem>
             <NavItem to="/portfolios">PORTFOLIOS</NavItem>
-            <NavItem to="/blogs">BLOGS</NavItem>
+            {/* <NavItem to="/blogs">BLOGS</NavItem> */}
           </NavigationMenuList>
         </NavigationMenu>
         <div className="absolute right-0 h-full px-5 flex items-center justify-end gap-5">
