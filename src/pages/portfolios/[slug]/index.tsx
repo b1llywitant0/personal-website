@@ -4,7 +4,7 @@ import { PortableText, PortableTextBlock } from '@portabletext/react'
 import { useNavigate, useParams } from 'react-router'
 import { ChevronLeft, BookOpen, Info } from 'lucide-react'
 import type { PortableTextSpan } from '@portabletext/types'
-import { NotFound } from '@/pages/notFound'
+import NotFound from '@/pages/notFound'
 
 interface PortfolioItem {
   title: string

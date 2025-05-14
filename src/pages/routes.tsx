@@ -24,4 +24,11 @@ export const publicRoutes: RouteObject[] = [
       }
     },
   },
+  {
+    path: '*',
+    lazy: async () => {
+      const { default: NotFound } = await import('./notFound')
+      return { element: <NotFound /> }
+    },
+  }
 ]
