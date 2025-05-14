@@ -295,7 +295,7 @@ export function Portfolios() {
       {!isLoading && paginatedData.length > 0 ? (
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            className="flex flex-row flex-wrap items-start justify-center gap-5"
+            className="grid grid-cols-2 grid-rows-2 gap-5"
             key={currentPage}
             initial={{
               opacity: 0,
