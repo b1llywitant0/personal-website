@@ -14,11 +14,18 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
+    "@portabletext/react": "^3.2.1",
+    "@radix-ui/react-dialog": "^1.1.11",
     "@radix-ui/react-navigation-menu": "^1.2.6",
+    "@radix-ui/react-select": "^2.2.2",
     "@radix-ui/react-slot": "^1.2.0",
+    "@radix-ui/react-tooltip": "^1.2.4",
+    "@sanity/client": "^7.0.0",
+    "@sanity/image-url": "^1.1.0",
     "@tailwindcss/vite": "^4.1.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "lucide-react": "^0.488.0",
     "motion": "^12.7.4",
     "react": "^18.3.1",

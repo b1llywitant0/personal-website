@@ -6,7 +6,7 @@ import {
 } from 'motion/react'
 import { useEffect } from 'react'
 import { Reveal } from '@/components/Reveal/Reveal'
-import { Job } from '@/components/Card/Job'
+import { JobCard } from '@/components/Card/Job'
 import { ShinyButton } from '@/components/ui/ShinyButton'
 
 const colors = ['#13FFAA', '#1E67C6', '#CE84CF', '#DD335C']
@@ -163,7 +163,7 @@ export function Resume() {
         <div className="flex flex-col gap-10">
           {jobs.map((item) => (
             <Reveal duration={1} vertical={false}>
-              <Job
+              <JobCard
                 Title={item.title}
                 DurationFrom={item.durationFrom}
                 DurationTo={item.durationTo}
@@ -187,7 +187,7 @@ export function Resume() {
         <div className="flex flex-col gap-10">
           {educations.map((item) => (
             <Reveal duration={1} vertical={false}>
-              <Job
+              <JobCard
                 Title={item.title}
                 DurationFrom={item.durationFrom}
                 DurationTo={item.durationTo}
@@ -202,7 +202,7 @@ export function Resume() {
         </div>
       </div>
       <Reveal>
-        <div className="text-text-inverted mb-20 flex flex-row justify-center items-center gap-10 inter-normal">
+        <div className="text-text-inverted mb-15 flex flex-row justify-center items-center gap-10 inter-normal">
           <span className="text-right text-xl">
             Well, you've come to the bottom of the page.
             <br />

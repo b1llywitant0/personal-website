@@ -6,6 +6,8 @@ interface RevealProps {
   slide?: boolean
   duration?: number
   vertical?: boolean
+  slideBackground?: string
+  viewAmount?: number
 }
 
 export function Reveal({
@@ -13,15 +15,16 @@ export function Reveal({
   slide = false,
   duration = 0.5,
   vertical = true,
+  slideBackground = '#FFFFFF',
+  viewAmount = 0.5,
 }: RevealProps) {
   const targetRef = useRef(null)
-  const isInView = useInView(targetRef, { once: true, amount: 0.5 })
+  const isInView = useInView(targetRef, { once: true, amount: viewAmount })
   const mainControls = useAnimation()
   const slideControls = useAnimation()
 
   useEffect(() => {
     if (isInView) {
-      console.log(isInView)
       mainControls.start('visible')
       slideControls.start('visible')
     }
@@ -64,7 +67,7 @@ export function Reveal({
             bottom: 4,
             left: 0,
             right: 0,
-            background: '#FFFFFF',
+            background: slideBackground,
             zIndex: 20,
           }}
         />

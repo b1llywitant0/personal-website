@@ -1,15 +1,25 @@
-import { NavigationBar } from '@/components/Header/NavigationBar'
-import { useLocation, useOutlet } from 'react-router-dom'
+import { useLocation, useNavigate, useOutlet } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
+import { ChevronLeft } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
-export function Layout() {
+export function ArticleLayout() {
   const location = useLocation()
   const outlet = useOutlet()
 
+  const navigate = useNavigate()
+
   return (
     <div className="relative h-full w-full items-center bg-background-dark overflow-auto no-scrollbar">
-      <NavigationBar />
       <AnimatePresence mode="wait">
+        <Button
+          className="cursor-pointer"
+          onClick={() => {
+            navigate(-1)
+          }}
+        >
+          <ChevronLeft color="white" />
+        </Button>
         <motion.div
           key={location.pathname}
           initial={{ opacity: 0, y: 100 }}
