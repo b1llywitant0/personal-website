@@ -16,15 +16,16 @@ export function NavItem(props: NavItemProps) {
         isActive ? 'text-text-base bg-background-light' : ''
       }`}
     >
-      <Link to={props.to}>
-        <NavigationMenuLink
+      <NavigationMenuLink asChild>
+        <Link
+          to={props.to}
           className={`flex items-center rounded-md ${
             isActive ? 'hover:bg-background-light hover:text-text-base' : ''
           }`}
         >
           {props.children}
-        </NavigationMenuLink>
-      </Link>
+        </Link>
+      </NavigationMenuLink>
     </NavigationMenuItem>
   )
 }

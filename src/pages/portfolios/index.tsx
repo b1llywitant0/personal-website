@@ -249,7 +249,7 @@ export function Portfolios() {
             </SelectTrigger>
             <SelectContent>
               {filterRoles.map((item) => (
-                <SelectItem value={item.value}>{item.label}</SelectItem>
+                <SelectItem key={item.label} value={item.value}>{item.label}</SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -306,7 +306,7 @@ export function Portfolios() {
             transition={{ duration: 0.5, ease: 'easeInOut' }}
           >
             {paginatedData.map((item) => (
-              <Reveal slide={true} vertical={true}>
+              <Reveal key={item.slug.current} slide={true} vertical={true}>
                 <PortfolioCard
                   key={item.slug.current}
                   img={item.mainImage.asset.url}
