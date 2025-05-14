@@ -45,8 +45,15 @@ export function PortfolioDetails() {
         .fetch(
           `*[_type == 'portfolio' && slug.current == "${slug}"] {
           title,
-          tools[] -> { name },
-          mainImage { asset -> { url }, alt },
+          tools[] -> { 
+            name 
+          },
+          mainImage { 
+            asset -> { 
+              url 
+            }, 
+            alt 
+          },
           body
         }`
         )
