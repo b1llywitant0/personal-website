@@ -8,6 +8,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ListFilter,
+  Loader2,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { AnimatePresence, motion } from 'motion/react'
@@ -324,8 +325,9 @@ export function Portfolios() {
           Nothing here Bos
         </div>
       ) : (
-        <div className="flex h-full items-center justify-center">
-          Loading Bos
+        <div className="h-full items-center justify-center flex flex-col gap-5 roboto-normal">
+          <Loader2 className="h-20 w-20 animate-spin" />
+          <span className='animate-pulse duration-100'>Retrieving data</span>
         </div>
       )}
       {currentPage > 1 ? (
