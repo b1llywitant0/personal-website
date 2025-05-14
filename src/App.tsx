@@ -16,7 +16,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: '/personal-website',
+    basename: '/',
   }
 )
 
