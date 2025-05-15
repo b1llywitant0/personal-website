@@ -306,7 +306,7 @@ export function Portfolios() {
             transition={{ duration: 0.5, ease: 'easeInOut' }}
           >
             {paginatedData.map((item) => (
-              <Reveal key={item.slug.current} slide={true} vertical={true}>
+              <Reveal key={item.slug.current} vertical={true}>
                 <PortfolioCard
                   key={item.slug.current}
                   img={item.mainImage.asset.url}

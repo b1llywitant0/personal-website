@@ -2,7 +2,7 @@ import { sanityClient, urlFor } from '@/client'
 import { useEffect, useState } from 'react'
 import { PortableText, PortableTextBlock } from '@portabletext/react'
 import { useNavigate, useParams } from 'react-router'
-import { ChevronLeft, BookOpen, Info, Loader2 } from 'lucide-react'
+import { ChevronLeft, BookOpen, Info, Loader2, CornerDownRight } from 'lucide-react'
 import type { PortableTextSpan } from '@portabletext/types'
 import NotFound from '@/pages/notFound'
 
@@ -196,8 +196,9 @@ export function PortfolioDetails() {
                     return (
                       <h3
                         id={id}
-                        className="text-2xl font-medium mb-3 mt-6 scroll-mt-25"
+                        className="flex items-center gap-2 text-2xl font-medium mb-3 mt-6 scroll-mt-25"
                       >
+                        <CornerDownRight size={20} />
                         {children}
                       </h3>
                     )
