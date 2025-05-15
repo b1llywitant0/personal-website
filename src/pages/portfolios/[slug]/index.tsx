@@ -161,13 +161,13 @@ export function PortfolioDetails() {
               components={{
                 types: {
                   image: ({ value }) => {
-                    const imageUrl = urlFor(value).width(800).url()
+                    const imageUrl = urlFor(value).url()
                     return (
                       <div className="my-6 flex justify-start">
                         <img
                           src={imageUrl}
                           alt={value.alt}
-                          className="rounded-md w-full lg:w-2/3"
+                          className="rounded-md"
                         />
                       </div>
                     )

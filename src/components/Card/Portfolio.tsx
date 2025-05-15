@@ -26,7 +26,7 @@ export function PortfolioCard(props: PortfolioProps) {
               components={{
                 block: {
                   normal: ({ children }) => (
-                    <p className="font-normal text-[15px]">{children}</p>
+                    <p className="font-normal text-[15px] pr-2">{children}</p>
                   ),
                 },
               }}
