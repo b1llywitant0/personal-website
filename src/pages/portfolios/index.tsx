@@ -249,7 +249,9 @@ export function Portfolios() {
             </SelectTrigger>
             <SelectContent>
               {filterRoles.map((item) => (
-                <SelectItem key={item.label} value={item.value}>{item.label}</SelectItem>
+                <SelectItem key={item.label} value={item.value}>
+                  {item.label}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
