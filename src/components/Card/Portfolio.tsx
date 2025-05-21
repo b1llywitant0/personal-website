@@ -14,12 +14,12 @@ export function PortfolioCard(props: PortfolioProps) {
   return (
     <Link to={`/portfolios/${props.linkTo}`}>
       <div
-        className="group w-[600px] h-[250px] relative rounded-md bg-cover bg-center p-3 roboto-normal overflow-hidden"
+        className="group w-screen max-w-[90%] h-[150px] md:w-[600px] md:h-[250px] mx-auto relative rounded-md bg-cover bg-center p-3 roboto-normal overflow-hidden"
         style={{ backgroundImage: `url(${props.img})` }}
       >
         <div className="absolute inset-0 bg-black/60 translate-y-[65%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out p-5 flex flex-col justify-between">
           <div className="absolute top-4 flex flex-col">
-            <span className="font-bold text-[20px] h-[75px]">
+            <span className="font-bold text-[10px] md:text-[20px] h-[75px] w-fit">
               {props.title}
             </span>
             <span className="font-light text-[13px]">
@@ -36,7 +36,7 @@ export function PortfolioCard(props: PortfolioProps) {
               }}
             />
           </div>
-          <div className="absolute bottom-4 flex flex-row items-center justify-start gap-3 cursor-default flex-wrap">
+          <div className="absolute bottom-4 hidden flex-row items-center justify-start gap-3 cursor-default flex-wrap md:flex">
             {props.tools
               ? props.tools.map((item) => (
                   <div

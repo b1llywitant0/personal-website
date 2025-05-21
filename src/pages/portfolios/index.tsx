@@ -128,7 +128,23 @@ export function Portfolios() {
       return b.createdAt.localeCompare(a.createdAt)
     })
 
-  const itemsPerPage = 4
+  const [itemsPerPage, setItemsPerPage] = useState<number>(4)
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setItemsPerPage(4)
+      } else {
+        setItemsPerPage(3)
+      }
+    }
+
+    handleResize()
+
+    window.addEventListener('resize', handleResize)
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)
 
@@ -138,9 +154,9 @@ export function Portfolios() {
   )
 
   return (
-    <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-8 robot-normal">
+    <div className="flex flex-col items-center justify-start h-full md:h-screen bg-background-dark text-text-inverted gap-8 robot-normal">
       {!isLoading && (
-        <div className="flex flex-row justify-center items-center gap-4 mt-25 bg-gray-600/40 rounded-md p-3">
+        <div className="hidden md:flex flex-row justify-center items-center gap-4 mt-25 bg-gray-600/40 rounded-md p-3">
           <ListFilter />
           <div>
             <Select
@@ -203,7 +219,7 @@ export function Portfolios() {
       {!isLoading && paginatedData.length > 0 ? (
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            className="grid grid-cols-2 grid-rows-2 gap-5"
+            className="flex flex-col items-center mt-25 md:mt-0 md:grid md:grid-cols-2 md:grid-rows-2 gap-5"
             key={currentPage}
             initial={{
               opacity: 0,
@@ -240,7 +256,7 @@ export function Portfolios() {
         </div>
       )}
       {currentPage > 1 ? (
-        <div className="absolute left-5 top-1/2 w-fill">
+        <div className="absolute left-5 top-1/2 w-fill hidden md:block">
           <Button
             onClick={() => {
               setDirection('left')
@@ -254,7 +270,7 @@ export function Portfolios() {
         ''
       )}
       {!isLoading && currentPage > 0 && currentPage != totalPages ? (
-        <div className="absolute right-5 top-1/2 w-fill">
+        <div className="absolute right-5 top-1/2 w-fill hidden md:block">
           <Button
             onClick={() => {
               setDirection('right')
@@ -267,6 +283,19 @@ export function Portfolios() {
       ) : (
         ''
       )}
+      <div className="md:hidden w-fill">
+        {!isLoading && itemsPerPage != posts.length && (
+          <Button
+            onClick={() => {
+              setTimeout(() => {
+                setItemsPerPage(itemsPerPage + 1)
+              }, 0)
+            }}
+          >
+            Load More
+          </Button>
+        )}
+      </div>
     </div>
   )
 }
