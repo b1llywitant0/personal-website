@@ -139,6 +139,7 @@ export function Portfolios() {
 
   return (
     <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-8 robot-normal">
+      { !isLoading && (
       <div className="flex flex-row justify-center items-center gap-4 mt-25 bg-gray-600/40 rounded-md p-3">
         <ListFilter />
         <div>
@@ -161,8 +162,7 @@ export function Portfolios() {
           </Select>
         </div>
         <div>
-          { !isLoading && (
-            <MultipleSelector
+          <MultipleSelector
             defaultOptions={filterTools}
             placeholder="Tools"
             emptyIndicator={
@@ -177,7 +177,6 @@ export function Portfolios() {
             }}
             className="bg-white text-black w-auto"
           />
-          )}
         </div>
         <div className="h-full w-0 ring ring-white/90" />
         <div className="flex flex-row gap-3 items-center">
@@ -200,6 +199,7 @@ export function Portfolios() {
           </Button>
         </div>
       </div>
+    )}
       {!isLoading && paginatedData.length > 0 ? (
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
@@ -253,7 +253,7 @@ export function Portfolios() {
       ) : (
         ''
       )}
-      {currentPage > 0 && currentPage != totalPages ? (
+      {!isLoading && currentPage > 0 && currentPage != totalPages ? (
         <div className="absolute right-5 top-1/2 w-fill">
           <Button
             onClick={() => {
