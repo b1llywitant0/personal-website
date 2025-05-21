@@ -18,7 +18,7 @@ export function ShinyButton(props: ShinyButtonProps) {
 
   return (
     <div className="relative w-fit mx-1">
-      <Button className="relative text-xl h-1/2 cursor-pointer !font-light bg-gray-600 z-10 hover:bg-gray-700">
+      <Button className="relative text-l md:text-xl h-1/2 cursor-pointer !font-light bg-gray-600 z-10 hover:bg-gray-700">
         {props.text}
       </Button>
       <motion.div

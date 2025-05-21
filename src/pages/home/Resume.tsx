@@ -137,7 +137,7 @@ export function Resume() {
       className="h-fit flex flex-col items-center justify-start gap-20"
     >
       <Reveal duration={1}>
-        <div className=" flex flex-col justify-start mt-45 gap-5 text-text-inverted text-2xl roboto-normal !font-light">
+        <div className=" flex flex-col px-4 justify-start mt-45 gap-5 text-text-inverted text-[16px] md:text-2xl roboto-normal !font-light">
           <div className="flex flex-row gap-5">
             <p>📍</p>
             <p>I am a data professional based in Jakarta, Indonesia.</p>
@@ -156,7 +156,7 @@ export function Resume() {
       </Reveal>
       <div className="w-full flex flex-col gap-10 justify-center items-center text-text-inverted">
         <Reveal slide={true}>
-          <span className="text-5xl inter-normal cursor-default">
+          <span className="text-4xl md:text-5xl inter-normal cursor-default">
             Work Experience
           </span>
         </Reveal>
@@ -181,7 +181,7 @@ export function Resume() {
 
       <div className="w-full flex flex-col gap-10 justify-center items-center text-text-inverted">
         <Reveal slide={true}>
-          <span className="text-5xl inter-normal cursor-default">
+          <span className="text-4xl md:text-5xl inter-normal cursor-default">
             Education
           </span>
         </Reveal>
@@ -204,8 +204,8 @@ export function Resume() {
         </div>
       </div>
       <Reveal>
-        <div className="text-text-inverted mb-15 flex flex-row justify-center items-center gap-10 inter-normal">
-          <span className="text-right text-xl">
+        <div className="text-text-inverted mb-15 flex flex-col md:flex-row justify-center items-center gap-5 md:gap-10 inter-normal">
+          <span className="text-l text-center md:text-right md:text-xl">
             Well, you've come to the bottom of the page.
             <br />
             Do you need my resume?
