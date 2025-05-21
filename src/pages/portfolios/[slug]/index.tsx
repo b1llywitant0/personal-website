@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import type { PortableTextSpan } from '@portabletext/types'
 import NotFound from '@/pages/notFound'
+import { BackToTopButton } from '@/components/BackToTopBtn'
 
 interface PortfolioItem {
   title: string
@@ -156,6 +157,7 @@ export function PortfolioDetails() {
                             behavior: 'smooth',
                             block: 'start',
                           })
+                          el
                         }
                       }}
                     >
@@ -284,6 +286,7 @@ export function PortfolioDetails() {
               }}
             />
           </article>
+          <BackToTopButton/>
         </div>
       ) : (
         <NotFound />

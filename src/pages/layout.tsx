@@ -7,7 +7,7 @@ export function Layout() {
   const outlet = useOutlet()
 
   return (
-    <div className="relative h-full w-full items-center bg-background-dark overflow-auto no-scrollbar">
+    <div id="scrollable-div" className="relative h-full w-full items-center bg-background-dark overflow-auto no-scrollbar">
       <NavigationBar />
       <AnimatePresence mode="wait">
         <motion.div
