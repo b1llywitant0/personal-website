@@ -197,7 +197,7 @@ export function Banner() {
           <Marquee items={techStackItems2} />
         </div>
       </motion.div>
-      <motion.div className="absolute flex flex-row gap-1 items-center bottom-5">
+      <motion.div className="absolute flex flex-row gap-1 items-center bottom-20 md:bottom-5">
         <ArrowDown className="animate-bounce" />
         <span className="inline-block align-middle cursor-default text-[13px] md:text-[15px]">
           Scroll-down to see more
