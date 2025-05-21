@@ -3,7 +3,7 @@ import { NavigationMenu, NavigationMenuList } from '../ui/navigation-menu'
 import { Button } from '../ui/button'
 import LinkedInLogo from '../../assets/icons/linkedin-icon-black-png.png'
 import GithubLogo from '../../assets/icons/github-icon-black.png'
-import EmailIcon from '../../assets/icons/email-icon-black.png'
+// import EmailIcon from '../../assets/icons/email-icon-black.png'
 import { NavItem } from './NavigationItem'
 
 export function NavigationBar() {
@@ -18,11 +18,11 @@ export function NavigationBar() {
           </NavigationMenuList>
         </NavigationMenu>
         <div className="absolute right-0 h-full px-5 flex items-center justify-end gap-5">
-          <Button className="p-0 bg-transparent hover:bg-transparent shadow-none">
+          {/* <Button className="p-0 bg-transparent hover:bg-transparent shadow-none">
             <Link to="/contact">
               <img src={EmailIcon} className="w-[28px] h-[28px] invert" />
             </Link>
-          </Button>
+          </Button> */}
           <Button className="p-0 bg-transparent hover:bg-transparent shadow-none">
             <Link to="https://www.linkedin.com/in/billywitanto">
               <img src={LinkedInLogo} className="w-[25px] h-[25px] invert" />

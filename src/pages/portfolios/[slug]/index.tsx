@@ -1,8 +1,14 @@
 import { sanityClient, urlFor } from '@/client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { PortableText, PortableTextBlock } from '@portabletext/react'
 import { useNavigate, useParams } from 'react-router'
-import { ChevronLeft, BookOpen, Info, Loader2 } from 'lucide-react'
+import {
+  ChevronLeft,
+  BookOpen,
+  Info,
+  Loader2,
+  CornerDownRight,
+} from 'lucide-react'
 import type { PortableTextSpan } from '@portabletext/types'
 import NotFound from '@/pages/notFound'
 
@@ -18,6 +24,10 @@ interface PortfolioItem {
   body: PortableTextBlock[]
 }
 
+function slugify(text: string) {
+  return text.toLowerCase().replace(/\s+/g, '-')
+}
+
 export function PortfolioDetails() {
   const navigate = useNavigate()
   const { slug } = useParams()
@@ -26,6 +36,7 @@ export function PortfolioDetails() {
   const [headings, setHeadings] = useState<
     { id: string; text: string; level: number }[]
   >([])
+  const currentH2Ref = useRef('')
 
   useEffect(() => {
     setIsLoading(true)
@@ -45,18 +56,11 @@ export function PortfolioDetails() {
       sanityClient
         .fetch(
           `*[_type == 'portfolio' && slug.current == "${slug}"] {
-          title,
-          tools[] -> { 
-            name 
-          },
-          mainImage { 
-            asset -> { 
-              url 
-            }, 
-            alt 
-          },
-          body
-        }`
+            title,
+            tools[] -> { name },
+            mainImage { asset -> { url }, alt },
+            body
+          }`
         )
         .then((data) => {
           setIsLoading(false)
@@ -73,6 +77,7 @@ export function PortfolioDetails() {
   useEffect(() => {
     if (portfolio?.body) {
       const newHeadings: { id: string; text: string; level: number }[] = []
+      let currentH2 = ''
 
       portfolio.body.forEach((block) => {
         if (
@@ -82,15 +87,27 @@ export function PortfolioDetails() {
           const headingText =
             block.children
               ?.filter((c): c is PortableTextSpan => c._type === 'span')
-              .map((c: PortableTextSpan) => c.text)
+              .map((c) => c.text)
               .join('') || ''
-          const id = headingText.toLowerCase().replace(/\s+/g, '-')
-          if (!newHeadings.some((h) => h.id === id)) {
-            newHeadings.push({
-              id,
-              text: headingText,
-              level: block.style === 'h2' ? 2 : 3,
-            })
+
+          if (block.style === 'h2') {
+            currentH2 = slugify(headingText)
+            if (!newHeadings.some((h) => h.id === currentH2)) {
+              newHeadings.push({
+                id: currentH2,
+                text: headingText,
+                level: 2,
+              })
+            }
+          } else if (block.style === 'h3') {
+            const id = `${currentH2}-${slugify(headingText)}`
+            if (!newHeadings.some((h) => h.id === id)) {
+              newHeadings.push({
+                id,
+                text: headingText,
+                level: 3,
+              })
+            }
           }
         }
       })
@@ -155,19 +172,20 @@ export function PortfolioDetails() {
             <img
               src={portfolio.mainImage.asset.url}
               className="h-[300px] w-full object-cover rounded-md mb-8"
+              alt={portfolio.mainImage.alt}
             />
             <PortableText
               value={portfolio.body}
               components={{
                 types: {
                   image: ({ value }) => {
-                    const imageUrl = urlFor(value).width(800).url()
+                    const imageUrl = urlFor(value).url()
                     return (
                       <div className="my-6 flex justify-start">
                         <img
                           src={imageUrl}
                           alt={value.alt}
-                          className="rounded-md w-full lg:w-2/3"
+                          className="rounded-md"
                         />
                       </div>
                     )
@@ -176,7 +194,8 @@ export function PortfolioDetails() {
                 block: {
                   h2: ({ children }) => {
                     const headingText = String(children)
-                    const id = headingText.toLowerCase().replace(/\s+/g, '-')
+                    const id = slugify(headingText)
+                    currentH2Ref.current = id
                     return (
                       <>
                         <div className="w-full h-px my-10 bg-gradient-to-r from-transparent via-gray-500 to-transparent" />
@@ -192,12 +211,13 @@ export function PortfolioDetails() {
                   },
                   h3: ({ children }) => {
                     const headingText = String(children)
-                    const id = headingText.toLowerCase().replace(/\s+/g, '-')
+                    const id = `${currentH2Ref.current}-${slugify(headingText)}`
                     return (
                       <h3
                         id={id}
-                        className="text-2xl font-medium mb-3 mt-6 scroll-mt-25"
+                        className="flex items-center gap-2 text-2xl font-medium mb-3 mt-6 scroll-mt-25"
                       >
+                        <CornerDownRight size={20} />
                         {children}
                       </h3>
                     )
