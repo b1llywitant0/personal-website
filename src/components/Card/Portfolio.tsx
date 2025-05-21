@@ -19,7 +19,7 @@ export function PortfolioCard(props: PortfolioProps) {
       >
         <div className="absolute inset-0 bg-black/60 translate-y-[65%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out px-5 py-3 flex flex-col justify-between">
           <div className="flex flex-col">
-            <span className="font-bold text-[10px] md:text-[20px] h-[75px] w-full">
+            <span className="font-bold text-[12px] md:text-[20px] h-[75px] w-full">
               {props.title}
             </span>
             <span className="font-light text-[13px]">
