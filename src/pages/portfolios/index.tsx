@@ -40,81 +40,6 @@ interface PortfolioItem {
   briefDescription: PortableTextBlock[]
 }
 
-// const PortfolioItems: PortfolioItem[] = [
-//   {
-//     id: 1,
-//     title:
-//       'The correlation between viral genetics and the progression of Hepatitis B disease',
-//     img: EijkmanPic,
-//     startDate: '2021-10-01',
-//     role: 'Data Analyst',
-//     linkTo: '/portfolios/eijkman-main-research',
-//     tools: ['R', 'SPSS'],
-//     briefDescription:
-//       'The dissertation of my manager. I single-handedly helped with the data analysis, including the selection of statistical methods used.',
-//   },
-//   {
-//     id: 2,
-//     title: 'Philadephia Property Value Prediction',
-//     img: '',
-//     startDate: '2022-04-10',
-//     role: 'Data Scientist',
-//     linkTo: '/portfolios/purwadhika-final-project',
-//     tools: ['Python', 'Jupyter Notebook'],
-//     briefDescription: 'My first machine learning project.',
-//   },
-//   {
-//     id: 3,
-//     title: 'CMK',
-//     img: '',
-//     startDate: '2024-09-01',
-//     role: 'Data Analyst',
-//     linkTo: '/portfolios/cmk-summary',
-//     tools: ['Python', 'Jupyter Notebook'],
-//     briefDescription: 'Digital marketing analyst.',
-//   },
-//   {
-//     id: 4,
-//     title: 'ELT Pipeline',
-//     img: '',
-//     startDate: '2025-03-01',
-//     role: 'Data Engineer',
-//     linkTo: '/portfolios/elt-dbt-semantic-layer',
-//     tools: [
-//       'PostgreSQL',
-//       'Kafka',
-//       'Debezium',
-//       'Airflow',
-//       'ClickHouse',
-//       'dbt',
-//       'Cube',
-//       'Metabase',
-//     ],
-//     briefDescription: 'My first data engineer portfolio.',
-//   },
-//   {
-//     id: 5,
-//     title: 'Personal website',
-//     img: '',
-//     startDate: '2025-04-01',
-//     role: 'Front-End Engineer',
-//     linkTo: '/portfolios/personal-website-description',
-//     tools: [
-//       'React',
-//       'Vite',
-//       'HTML',
-//       'CSS',
-//       'JavaScript',
-//       'TypeScript',
-//       'ShadCN',
-//       'Tailwind',
-//       'Framer Motion',
-//     ],
-//     briefDescription:
-//       'Personal project to create a website and showcasing my front-end skill that I learned recently.',
-//   },
-// ]
-
 const filterRoles = [
   { label: 'All Roles', value: 'All' },
   { label: 'Data Analyst', value: 'Data Analyst' },
@@ -123,87 +48,66 @@ const filterRoles = [
   { label: 'Front-End Engineer', value: 'Front-End Engineer' },
 ]
 
-const filterTools = [
-  { label: 'R', value: 'R' },
-  { label: 'SPSS', value: 'SPSS' },
-  { label: 'Python', value: 'Python' },
-  { label: 'Jupyter Notebook', value: 'Jupyter Notebook' },
-  { label: 'PostgreSQL', value: 'PostgreSQL' },
-  { label: 'Kafka', value: 'Kafka' },
-  { label: 'Debezium', value: 'Debezium' },
-  { label: 'Airflow', value: 'Airflow' },
-  { label: 'ClickHouse', value: 'ClickHouse' },
-  { label: 'dbt', value: 'dbt' },
-  { label: 'Cube', value: 'Cube' },
-  { label: 'Metabase', value: 'Metabase' },
-  { label: 'React', value: 'React' },
-  { label: 'Vite', value: 'Vite' },
-  { label: 'HTML', value: 'HTML' },
-  { label: 'CSS', value: 'CSS' },
-  { label: 'JavaScript', value: 'JavaScript' },
-  { label: 'TypeScript', value: 'TypeScript' },
-  { label: 'ShadCN', value: 'ShadCN' },
-  { label: 'Tailwind', value: 'Tailwind' },
-  { label: 'Framer Motion', value: 'Framer Motion' },
-]
-
 export function Portfolios() {
   const [posts, setPosts] = useState<PortfolioItem[]>([])
+  const [filterTools, setFilterTools] = useState<Option[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
     setIsLoading(true)
-    const cachedData = sessionStorage.getItem('portfolios')
-    const cachedTimestamp = sessionStorage.getItem('portfolios_timestamp')
-
-    const currentTime = Date.now()
-
-    if (
-      cachedData &&
-      cachedTimestamp &&
-      currentTime - parseInt(cachedTimestamp) < 600000
-    ) {
-      setIsLoading(false)
-      setPosts(JSON.parse(cachedData))
-    } else {
-      sanityClient
-        .fetch(
-          `*[_type == 'portfolio'] {
-        title,
-        slug {
-          current
-        },
-        role,
-        tools[] -> {
-          name
-        },
-        createdAt,
-        briefDescription,
-        mainImage {
-          asset -> {
-            url
-          },
-          alt
-        }
-      }`
-        )
-        .then((data) => {
-          setIsLoading(false)
-          setPosts(data)
-          sessionStorage.setItem('portfolios', JSON.stringify(data))
-          sessionStorage.setItem('portfolios_timestamp', currentTime.toString())
-        })
-        .catch(console.error)
-    }
+  
+    const toolFetch = sanityClient
+      .fetch(`*[_type == 'tool'] { name }`)
+      .then((data) => {
+        const tools: Option[] = data.map((tool: { name: string }) => ({
+          value: tool.name,
+          label: tool.name,
+        }))
+        setFilterTools(tools)
+      })
+  
+    const portfolioFetch = (async () => {
+      const cachedData = sessionStorage.getItem('portfolios')
+      const cachedTimestamp = sessionStorage.getItem('portfolios_timestamp')
+      const currentTime = Date.now()
+  
+      if (
+        cachedData &&
+        cachedTimestamp &&
+        currentTime - parseInt(cachedTimestamp) < 600000
+      ) {
+        setPosts(JSON.parse(cachedData))
+      } else {
+        const data = await sanityClient.fetch(`*[_type == 'portfolio'] {
+          title,
+          slug { current },
+          role,
+          tools[] -> { name },
+          createdAt,
+          briefDescription,
+          mainImage {
+            asset -> { url },
+            alt
+          }
+        }`)
+        setPosts(data)
+        sessionStorage.setItem('portfolios', JSON.stringify(data))
+        sessionStorage.setItem('portfolios_timestamp', currentTime.toString())
+      }
+    })()
+  
+    Promise.all([toolFetch, portfolioFetch])
+      .finally(() => setIsLoading(false))
+      .catch(console.error)
   }, [])
-
+  
   const [selectedRole, setSelectedRole] = useState<string>('All')
   const [selectedTools, setSelectedTools] = useState<Option[]>([])
 
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [direction, setDirection] = useState<'left' | 'right'>('right')
 
-  const [ascending, setAscending] = useState<boolean>(true)
+  const [ascending, setAscending] = useState<boolean>(false)
 
   const filteredData = posts
     ?.filter((item) => {
@@ -257,7 +161,8 @@ export function Portfolios() {
           </Select>
         </div>
         <div>
-          <MultipleSelector
+          { !isLoading && (
+            <MultipleSelector
             defaultOptions={filterTools}
             placeholder="Tools"
             emptyIndicator={
@@ -272,6 +177,7 @@ export function Portfolios() {
             }}
             className="bg-white text-black w-auto"
           />
+          )}
         </div>
         <div className="h-full w-0 ring ring-white/90" />
         <div className="flex flex-row gap-3 items-center">
@@ -347,7 +253,7 @@ export function Portfolios() {
       ) : (
         ''
       )}
-      {!currentPage && currentPage != totalPages ? (
+      {currentPage > 0 && currentPage != totalPages ? (
         <div className="absolute right-5 top-1/2 w-fill">
           <Button
             onClick={() => {
