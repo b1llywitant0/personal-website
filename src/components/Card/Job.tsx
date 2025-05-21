@@ -27,11 +27,11 @@ export function JobCard(props: JobProps) {
             className="text-m md:text-lg w-fit"
           >
             <span>@ </span>
-            <span className="hover:underline">{props.Company}</span>
+            <span className="underline md:no-underline hover:underline">{props.Company}</span>
           </a>
         ) : (
           <span className="text-lg w-fit">
-            @ {props.Company} - {props.Location}
+            @ {props.Company}
           </span>
         )}
       </div>
