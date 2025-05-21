@@ -128,7 +128,22 @@ export function Portfolios() {
       return b.createdAt.localeCompare(a.createdAt)
     })
 
-  const itemsPerPage = 4
+  const [itemsPerPage, setItemsPerPage] = useState<number>(4)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)')
+
+    const updateItemsPerPage = (e: MediaQueryListEvent | MediaQueryList) => {
+      const isDesktop = e.matches
+      setItemsPerPage(isDesktop ? 4 : filteredData.length)
+      setCurrentPage(1)
+    }
+
+    updateItemsPerPage(mq)
+    mq.addEventListener('change', updateItemsPerPage)
+
+    return () => mq.removeEventListener('change', updateItemsPerPage)
+  }, [filteredData.length])
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)
 
@@ -138,9 +153,9 @@ export function Portfolios() {
   )
 
   return (
-    <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-8 robot-normal">
+    <div className="flex flex-col items-center justify-start h-full md:h-screen bg-background-dark text-text-inverted gap-8 robot-normal">
       {!isLoading && (
-        <div className="flex flex-row justify-center items-center gap-4 mt-25 bg-gray-600/40 rounded-md p-3">
+        <div className="hidden md:flex flex-row justify-center items-center gap-4 mt-25 bg-gray-600/40 rounded-md p-3">
           <ListFilter />
           <div>
             <Select
@@ -203,7 +218,7 @@ export function Portfolios() {
       {!isLoading && paginatedData.length > 0 ? (
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            className="grid grid-cols-2 grid-rows-2 gap-5"
+            className="flex flex-col items-center mt-25 mb-5 md:mt-0 md:grid md:grid-cols-2 md:grid-rows-2 gap-5"
             key={currentPage}
             initial={{
               opacity: 0,
@@ -230,17 +245,16 @@ export function Portfolios() {
         </AnimatePresence>
       ) : !isLoading && paginatedData.length == 0 ? (
         <div className="h-screen flex flex-col justify-center items-center text-white text-center px-4 roboto-normal">
-          <h1 className="text-4xl font-bold mb-4">Nothing's here</h1>
-          <p className="text-xl mb-6">Please use another filter</p>
+          <h1 className="text-4xl font-bold mb-4">Error</h1>
         </div>
       ) : (
-        <div className="h-full items-center justify-center flex flex-col gap-5 roboto-normal">
+        <div className="h-screen items-center justify-center flex flex-col gap-5 roboto-normal">
           <Loader2 className="h-20 w-20 animate-spin" />
           <span className="animate-pulse duration-100">Retrieving data</span>
         </div>
       )}
       {currentPage > 1 ? (
-        <div className="absolute left-5 top-1/2 w-fill">
+        <div className="absolute left-5 top-1/2 w-fill hidden md:block">
           <Button
             onClick={() => {
               setDirection('left')
@@ -254,7 +268,7 @@ export function Portfolios() {
         ''
       )}
       {!isLoading && currentPage > 0 && currentPage != totalPages ? (
-        <div className="absolute right-5 top-1/2 w-fill">
+        <div className="absolute right-5 top-1/2 w-fill hidden md:block">
           <Button
             onClick={() => {
               setDirection('right')

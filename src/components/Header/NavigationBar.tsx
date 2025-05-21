@@ -54,28 +54,28 @@ export function NavigationBar() {
         </div>
       </div>
       <AnimatePresence>
-      {isMenuOpen && (
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="fixed top-0 h-screen w-screen inter-normal bg-background-dark/90 text-text-inverted text-l flex justify-center items-center z-[100]"
-        >
-          <NavigationMenu
-            onClick={() => {
-              setIsMenuOpen(false)
-            }}
-            className="w-full"
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed top-0 h-screen w-screen inter-normal bg-background-dark/90 text-text-inverted text-l flex justify-center items-center z-[100]"
           >
-            <NavigationMenuList className="flex flex-col gap-y-10">
-              <NavItem to="/">ABOUT ME</NavItem>
-              <NavItem to="/portfolios">PORTFOLIOS</NavItem>
-              {/* <NavItem to="/blogs">BLOGS</NavItem> */}
-            </NavigationMenuList>
-          </NavigationMenu>
-        </motion.div>
-      )}
+            <NavigationMenu
+              onClick={() => {
+                setIsMenuOpen(false)
+              }}
+              className="w-full"
+            >
+              <NavigationMenuList className="flex flex-col gap-y-10">
+                <NavItem to="/">ABOUT ME</NavItem>
+                <NavItem to="/portfolios">PORTFOLIOS</NavItem>
+                {/* <NavItem to="/blogs">BLOGS</NavItem> */}
+              </NavigationMenuList>
+            </NavigationMenu>
+          </motion.div>
+        )}
       </AnimatePresence>
     </>
   )

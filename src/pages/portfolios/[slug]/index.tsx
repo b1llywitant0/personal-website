@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import type { PortableTextSpan } from '@portabletext/types'
 import NotFound from '@/pages/notFound'
+import { BackToTopButton } from '@/components/BackToTopBtn'
 
 interface PortfolioItem {
   title: string
@@ -126,7 +127,7 @@ export function PortfolioDetails() {
       ) : portfolio ? (
         <div className="text-white flex flex-col lg:flex-row px-10 gap-10 roboto-normal">
           <div>
-            <div className="mt-25 px-10 left-0 pb-5 fixed flex flex-row gap-2 z-5">
+            <div className="mt-25 px-10 left-0 pb-5 absolute md:fixed flex flex-row gap-2 z-5">
               <div
                 className="group cursor-pointer h-fit flex flex-row items-center gap-1 hover:scale-115 transform transition duration-200"
                 onClick={() => navigate('/portfolios')}
@@ -156,6 +157,7 @@ export function PortfolioDetails() {
                             behavior: 'smooth',
                             block: 'start',
                           })
+                          el
                         }
                       }}
                     >
@@ -284,6 +286,7 @@ export function PortfolioDetails() {
               }}
             />
           </article>
+          <BackToTopButton/>
         </div>
       ) : (
         <NotFound />

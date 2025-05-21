@@ -27,21 +27,22 @@ export function JobCard(props: JobProps) {
             className="text-m md:text-lg w-fit"
           >
             <span>@ </span>
-            <span className="hover:underline">
+            <span className="underline italic md:no-underline hover:underline">
               {props.Company}
             </span>
           </a>
         ) : (
-          <span className="text-lg w-fit">
-            @ {props.Company} - {props.Location}
-          </span>
+          <span className="text-m md:text-lg w-fit">@ {props.Company}</span>
         )}
-      </div>s
+      </div>
       <span className="text-medium">{props.Description}</span>
       <div className="flex flex-row flex-wrap items-center justify-start gap-3 cursor-default">
         {props.Tools
           ? props.Tools.map((item) => (
-              <div key={item} className="px-2 py-1 w-fit h-fit rounded-md bg-gray-500/90 text-[13px] hover:bg-gray-800">
+              <div
+                key={item}
+                className="px-2 py-1 w-fit h-fit rounded-md bg-gray-500/90 text-[13px] hover:bg-gray-800"
+              >
                 {item}
               </div>
             ))
