@@ -41,7 +41,10 @@ export function JobCard(props: JobProps) {
       <div className="flex flex-row items-center justify-start gap-3 cursor-default">
         {props.Tools
           ? props.Tools.map((item) => (
-              <div className="px-2 py-1 w-fit h-fit rounded-md bg-gray-500/90 text-[13px] hover:bg-gray-800">
+              <div
+                key={item}
+                className="px-2 py-1 w-fit h-fit rounded-md bg-gray-500/90 text-[13px] hover:bg-gray-800"
+              >
                 {item}
               </div>
             ))

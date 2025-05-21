@@ -162,8 +162,9 @@ export function Resume() {
         </Reveal>
         <div className="flex flex-col gap-10">
           {jobs.map((item) => (
-            <Reveal duration={1} vertical={false}>
+            <Reveal key={item.title} duration={1} vertical={false}>
               <JobCard
+                key={item.title}
                 Title={item.title}
                 DurationFrom={item.durationFrom}
                 DurationTo={item.durationTo}
@@ -186,8 +187,9 @@ export function Resume() {
         </Reveal>
         <div className="flex flex-col gap-10">
           {educations.map((item) => (
-            <Reveal duration={1} vertical={false}>
+            <Reveal key={item.title} duration={1} vertical={false}>
               <JobCard
+                key={item.title}
                 Title={item.title}
                 DurationFrom={item.durationFrom}
                 DurationTo={item.durationTo}
