@@ -134,16 +134,17 @@ export function Portfolios() {
     const mq = window.matchMedia('(min-width: 768px)')
   
     const updateItemsPerPage = (e: MediaQueryListEvent | MediaQueryList) => {
-      setItemsPerPage(e.matches ? 4 : posts.length)
+      const isDesktop = e.matches
+      setItemsPerPage(isDesktop ? 4 : filteredData.length)
+      setCurrentPage(1)
     }
   
     updateItemsPerPage(mq)
     mq.addEventListener('change', updateItemsPerPage)
   
     return () => mq.removeEventListener('change', updateItemsPerPage)
-  }, [])
-  
-
+  }, [filteredData.length])
+    
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)
 
   const paginatedData = filteredData.slice(
