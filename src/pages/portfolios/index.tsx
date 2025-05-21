@@ -129,18 +129,15 @@ export function Portfolios() {
     })
 
   const [itemsPerPage, setItemsPerPage] = useState<number>(4)
+  const handleResize = () => {
+    if (window.innerWidth >= 768) {
+      setItemsPerPage(4)
+    } else if (window.innerWidth < 768) {
+      setItemsPerPage(3)
+    }
+  }
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setItemsPerPage(4)
-      } else if (window.innerWidth < 768) {
-        setItemsPerPage(3)
-      }
-    }
-
-    handleResize()
-
     window.addEventListener('resize', handleResize)
 
     return () => window.removeEventListener('resize', handleResize)
