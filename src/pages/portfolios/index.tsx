@@ -141,7 +141,7 @@ export function Portfolios() {
     window.addEventListener('resize', handleResize)
 
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [window.innerWidth])
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)
 
