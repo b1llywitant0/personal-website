@@ -129,19 +129,20 @@ export function Portfolios() {
     })
 
   const [itemsPerPage, setItemsPerPage] = useState<number>(4)
-  const handleResize = () => {
-    if (window.innerWidth >= 768) {
-      setItemsPerPage(4)
-    } else if (window.innerWidth < 768) {
-      setItemsPerPage(3)
-    }
-  }
-
+  
   useEffect(() => {
-    window.addEventListener('resize', handleResize)
-
-    return () => window.removeEventListener('resize', handleResize)
-  }, [window.innerWidth])
+    const mq = window.matchMedia('(min-width: 768px)')
+  
+    const updateItemsPerPage = (e: MediaQueryListEvent | MediaQueryList) => {
+      setItemsPerPage(e.matches ? 4 : 3)
+    }
+  
+    updateItemsPerPage(mq) // Set on mount
+    mq.addEventListener('change', updateItemsPerPage)
+  
+    return () => mq.removeEventListener('change', updateItemsPerPage)
+  }, [])
+  
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)
 
