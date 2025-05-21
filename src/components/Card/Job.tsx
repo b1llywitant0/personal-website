@@ -30,7 +30,7 @@ export function JobCard(props: JobProps) {
             <span className="underline italic md:no-underline hover:underline">{props.Company}</span>
           </a>
         ) : (
-          <span className="text-lg w-fit">
+          <span className="text-m md:text-lg w-fit">
             @ {props.Company}
           </span>
         )}
