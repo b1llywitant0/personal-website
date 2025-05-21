@@ -129,15 +129,15 @@ export function Portfolios() {
     })
 
   const [itemsPerPage, setItemsPerPage] = useState<number>(4)
-  
+
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 768px)')
   
     const updateItemsPerPage = (e: MediaQueryListEvent | MediaQueryList) => {
-      setItemsPerPage(e.matches ? 4 : 3)
+      setItemsPerPage(e.matches ? 4 : posts.length)
     }
   
-    updateItemsPerPage(mq) // Set on mount
+    updateItemsPerPage(mq)
     mq.addEventListener('change', updateItemsPerPage)
   
     return () => mq.removeEventListener('change', updateItemsPerPage)
@@ -217,7 +217,7 @@ export function Portfolios() {
       {!isLoading && paginatedData.length > 0 ? (
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            className="flex flex-col items-center mt-25 md:mt-0 md:grid md:grid-cols-2 md:grid-rows-2 gap-5"
+            className="flex flex-col items-center mt-25 mb-5 md:mt-0 md:grid md:grid-cols-2 md:grid-rows-2 gap-5"
             key={currentPage}
             initial={{
               opacity: 0,
@@ -280,19 +280,6 @@ export function Portfolios() {
       ) : (
         ''
       )}
-      <div className="md:hidden w-fill">
-        {!isLoading && itemsPerPage != posts.length && (
-          <Button
-            onClick={() => {
-              setTimeout(() => {
-                setItemsPerPage(itemsPerPage + 1)
-              }, 0)
-            }}
-          >
-            Load More
-          </Button>
-        )}
-      </div>
     </div>
   )
 }
