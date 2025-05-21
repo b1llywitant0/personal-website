@@ -36,7 +36,7 @@ export function JobCard(props: JobProps) {
             @ {props.Company} - {props.Location}
           </span>
         )}
-      </div>s
+      </div>
       <span className="text-medium">{props.Description}</span>
       <div className="flex flex-row flex-wrap items-center justify-start gap-3 cursor-default">
         {props.Tools
