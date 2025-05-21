@@ -168,7 +168,7 @@ export function Banner() {
           initial={{ opacity: 0, y: 75 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="inter-normal text-[100px] text-center"
+          className="inter-normal text-[50px] md:text-[100px] text-center"
         >
           Billy Witanto
         </motion.span>
@@ -177,7 +177,7 @@ export function Banner() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <span className="text-left roboto-normal !font-extralight text-[25px] cursor-default">
+          <span className="text-left roboto-normal !font-extralight text-[20px] md:text-[25px] cursor-default">
             Hi! I am <span>{typed}</span>
             <span className="animate-pulse">|</span>
           </span>
@@ -189,7 +189,7 @@ export function Banner() {
         transition={{ delay: 1, duration: 1 }}
         className="flex flex-col w-full justify-center items-center gap-5 cursor-default mt-20"
       >
-        <span className="w-3/4 text-center inter-normal text-[15px]">
+        <span className="w-3/4 text-center inter-normal text-[13px] md:text-[15px]">
           Experienced in:
         </span>
         <div className="w-3/4 rounded-xl flex flex-col">
@@ -199,7 +199,7 @@ export function Banner() {
       </motion.div>
       <motion.div className="absolute flex flex-row gap-1 items-center bottom-5">
         <ArrowDown className="animate-bounce" />
-        <span className="inline-block align-middle cursor-default">
+        <span className="inline-block align-middle cursor-default text-[13px] md:text-[15px]">
           Scroll-down to see more
         </span>
       </motion.div>

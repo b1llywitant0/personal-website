@@ -55,7 +55,7 @@ export function Portfolios() {
 
   useEffect(() => {
     setIsLoading(true)
-  
+
     const toolFetch = sanityClient
       .fetch(`*[_type == 'tool'] { name }`)
       .then((data) => {
@@ -65,12 +65,12 @@ export function Portfolios() {
         }))
         setFilterTools(tools)
       })
-  
+
     const portfolioFetch = (async () => {
       const cachedData = sessionStorage.getItem('portfolios')
       const cachedTimestamp = sessionStorage.getItem('portfolios_timestamp')
       const currentTime = Date.now()
-  
+
       if (
         cachedData &&
         cachedTimestamp &&
@@ -95,12 +95,12 @@ export function Portfolios() {
         sessionStorage.setItem('portfolios_timestamp', currentTime.toString())
       }
     })()
-  
+
     Promise.all([toolFetch, portfolioFetch])
       .finally(() => setIsLoading(false))
       .catch(console.error)
   }, [])
-  
+
   const [selectedRole, setSelectedRole] = useState<string>('All')
   const [selectedTools, setSelectedTools] = useState<Option[]>([])
 
@@ -139,67 +139,67 @@ export function Portfolios() {
 
   return (
     <div className="flex flex-col items-center justify-start h-screen bg-background-dark text-text-inverted gap-8 robot-normal">
-      <div className="flex flex-row justify-center items-center gap-4 mt-25 bg-gray-600/40 rounded-md p-3">
-        <ListFilter />
-        <div>
-          <Select
-            onValueChange={(e) => {
-              setSelectedRole(e)
-              setCurrentPage(1)
-            }}
-          >
-            <SelectTrigger className="bg-white text-black w-auto min-h-10">
-              <SelectValue placeholder="Role" />
-            </SelectTrigger>
-            <SelectContent>
-              {filterRoles.map((item) => (
-                <SelectItem key={item.label} value={item.value}>
-                  {item.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div>
-          { !isLoading && (
+      {!isLoading && (
+        <div className="flex flex-row justify-center items-center gap-4 mt-25 bg-gray-600/40 rounded-md p-3">
+          <ListFilter />
+          <div>
+            <Select
+              onValueChange={(e) => {
+                setSelectedRole(e)
+                setCurrentPage(1)
+              }}
+            >
+              <SelectTrigger className="bg-white text-black w-auto min-h-10">
+                <SelectValue placeholder="Role" />
+              </SelectTrigger>
+              <SelectContent>
+                {filterRoles.map((item) => (
+                  <SelectItem key={item.label} value={item.value}>
+                    {item.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
             <MultipleSelector
-            defaultOptions={filterTools}
-            placeholder="Tools"
-            emptyIndicator={
-              <p className="text-center leading-10 text-gray-600 dark:text-gray-400">
-                No tool found
-              </p>
-            }
-            maxCount={3}
-            onChange={(e) => {
-              setSelectedTools(e)
-              setCurrentPage(1)
-            }}
-            className="bg-white text-black w-auto"
-          />
-          )}
+              defaultOptions={filterTools}
+              placeholder="Tools"
+              emptyIndicator={
+                <p className="text-center leading-10 text-gray-600 dark:text-gray-400">
+                  No tool found
+                </p>
+              }
+              maxCount={3}
+              onChange={(e) => {
+                setSelectedTools(e)
+                setCurrentPage(1)
+              }}
+              className="bg-white text-black w-auto"
+            />
+          </div>
+          <div className="h-full w-0 ring ring-white/90" />
+          <div className="flex flex-row gap-3 items-center">
+            <ArrowUpDown />
+            <Button
+              className={`bg-gray-500 ${!ascending ? 'ring-2 ring-white' : ''}`}
+              onClick={() => {
+                setAscending(false)
+              }}
+            >
+              <CalendarArrowDown color="white" className="hover:" />
+            </Button>
+            <Button
+              className={`bg-gray-500 ${ascending ? 'ring-2 ring-white' : ''}`}
+              onClick={() => {
+                setAscending(true)
+              }}
+            >
+              <CalendarArrowUp color="white" />
+            </Button>
+          </div>
         </div>
-        <div className="h-full w-0 ring ring-white/90" />
-        <div className="flex flex-row gap-3 items-center">
-          <ArrowUpDown />
-          <Button
-            className={`bg-gray-500 ${!ascending ? 'ring-2 ring-white' : ''}`}
-            onClick={() => {
-              setAscending(false)
-            }}
-          >
-            <CalendarArrowDown color="white" className="hover:" />
-          </Button>
-          <Button
-            className={`bg-gray-500 ${ascending ? 'ring-2 ring-white' : ''}`}
-            onClick={() => {
-              setAscending(true)
-            }}
-          >
-            <CalendarArrowUp color="white" />
-          </Button>
-        </div>
-      </div>
+      )}
       {!isLoading && paginatedData.length > 0 ? (
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
@@ -253,7 +253,7 @@ export function Portfolios() {
       ) : (
         ''
       )}
-      {currentPage > 0 && currentPage != totalPages ? (
+      {!isLoading && currentPage > 0 && currentPage != totalPages ? (
         <div className="absolute right-5 top-1/2 w-fill">
           <Button
             onClick={() => {
